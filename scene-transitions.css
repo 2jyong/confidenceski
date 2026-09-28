@@ -1,0 +1,101 @@
+/* Each chapter enters with its own visual rhythm. The first video keeps its opening curtain. */
+.prologue-stage .moment-question {
+  clip-path: inset(0);
+  background: radial-gradient(circle at 82% 78%, #191012 0, #080808 38%, #030303 75%);
+  transition: opacity .34s ease, visibility 0s;
+}
+.prologue-stage .moment-question:not(.is-active):not(.is-leaving) { opacity: 0; }
+.prologue-stage .moment-question.is-active { opacity: 1; }
+.question-rail {
+  position: absolute;
+  top: 24%;
+  left: 8vw;
+  width: 84vw;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .72s cubic-bezier(.15,.7,.15,1);
+}
+.moment-question.is-active .question-rail { transform: scaleX(1); transition-delay: .12s; }
+.question-copy { right: 8vw; top: 55%; max-width: none; }
+.question-copy h2 { font-size: clamp(68px, 8.7vw, 145px); }
+.moment-question .reveal,
+.moment-question.is-active .reveal {
+  transform: none;
+  clip-path: inset(0 0 105% 0);
+  opacity: 0;
+  transition: clip-path .8s cubic-bezier(.22,.75,.14,1), opacity .2s;
+}
+.moment-question.is-active .reveal { clip-path: inset(0); opacity: 1; }
+.moment-question.is-active .micro { transition-delay: .37s; }
+.moment-question.is-active h2 span:first-child { transition-delay: .53s; }
+.moment-question.is-active h2 span:last-child { transition-delay: .72s; }
+.moment-question.is-active p:last-child { transition-delay: .98s; }
+
+.prologue-stage .moment-answer:not(.is-active):not(.is-leaving) { clip-path: inset(0 0 0 100%); opacity: 1; }
+.prologue-stage .moment-answer.is-active { clip-path: inset(0); opacity: 1; transition: clip-path .85s cubic-bezier(.22,.75,.14,1); }
+.moment-answer .answer-photo { clip-path: inset(0 100% 0 0); transition: clip-path .9s cubic-bezier(.22,.75,.14,1); }
+.moment-answer.is-active .answer-photo { clip-path: inset(0); transition-delay: .12s; }
+.moment-answer .answer-copy { opacity: 0; transform: translateX(70px); transition: opacity .55s, transform .8s cubic-bezier(.2,.7,.2,1); }
+.moment-answer.is-active .answer-copy { opacity: 1; transform: none; transition-delay: .35s; }
+.moment-answer .reveal,
+.moment-answer.is-active .reveal { opacity: 1; transform: none; transition: none; }
+
+.prologue-stage .moment-proof:not(.is-active):not(.is-leaving) { clip-path: inset(100% 0 0 0); opacity: 1; }
+.prologue-stage .moment-proof.is-active { clip-path: inset(0); opacity: 1; transition: clip-path .95s cubic-bezier(.2,.72,.13,1); }
+.proof-rail {
+  position: absolute;
+  z-index: 1;
+  right: 8vw;
+  top: 15%;
+  width: 2px;
+  height: 70%;
+  background: var(--red);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .75s cubic-bezier(.2,.7,.2,1);
+}
+.moment-proof.is-active .proof-rail { transform: scaleY(1); transition-delay: .37s; }
+.proof-copy { z-index: 2; }
+.moment-proof .reveal { transform: translateX(-45px); }
+.moment-proof.is-active .reveal { transform: none; }
+.moment-proof.is-active h2 span:first-child { transition-delay: .38s; }
+.moment-proof.is-active h2 span:last-child { transition-delay: .54s; }
+.moment-proof.is-active p:not(.micro) { transition-delay: .72s; }
+.moment-proof .proof-stat { opacity: 0; transform: translateX(-75px) scale(.9); transition: opacity .6s, transform .7s cubic-bezier(.2,.7,.2,1); }
+.moment-proof.is-active .proof-stat { opacity: 1; transform: none; transition-delay: .9s; }
+
+.prologue-stage .moment-gateway:not(.is-active):not(.is-leaving) { clip-path: circle(0 at 50% 50%); opacity: 1; }
+.prologue-stage .moment-gateway.is-active { clip-path: circle(150% at 50% 50%); opacity: 1; transition: clip-path 1.05s cubic-bezier(.22,.75,.14,1); }
+.moment-gateway .reveal { opacity: 0; transform: translateY(35px) scale(.94); transition: opacity .65s, transform .75s cubic-bezier(.2,.7,.2,1); }
+.moment-gateway.is-active .reveal { opacity: 1; transform: none; }
+.moment-gateway.is-active .micro { transition-delay: .4s; }
+.moment-gateway.is-active h2 span:first-child { transition-delay: .62s; }
+.moment-gateway.is-active h2 span:last-child { transition-delay: .79s; }
+.moment-gateway.is-active .enter-button { transition-delay: 1.02s; }
+
+/* Decorative page counters are removed; the card roles and route dates carry meaning. */
+.edge-number,.chapter-index,.moment-progress { display: none !important; }
+
+@media (max-width: 760px) {
+  .question-rail { left: 25px; width: calc(100% - 50px); top: 25%; }
+  .question-copy { left: 25px; right: 25px; top: 55%; }
+  .question-copy h2 { font-size: clamp(42px, 10.6vw, 76px); }
+  .proof-rail { right: 25px; top: 12%; height: 22%; }
+}
+@media (max-width: 430px) {
+  .question-copy h2 { font-size: clamp(38px, 10.7vw, 47px); }
+  .question-copy > p:last-child { font-size: 15px; line-height: 1.65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prologue-stage .moment,.question-rail,.answer-photo,.answer-copy,.proof-rail,
+  .moment-question .reveal,.moment-proof .proof-stat,.moment-gateway .reveal {
+    transition: none !important;
+  }
+  .prologue-stage .moment.is-active { clip-path: none !important; opacity: 1 !important; }
+  .question-rail,.answer-photo,.moment-answer .answer-copy,.proof-rail,
+  .moment-question .reveal,.moment-proof .proof-stat,.moment-gateway .reveal {
+    clip-path: none !important; opacity: 1 !important; transform: none !important;
+  }
+}
