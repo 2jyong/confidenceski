@@ -2,6 +2,8 @@
   const moments = [...document.querySelectorAll('.moment')];
   const prologue = document.querySelector('.prologue');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileFlow = matchMedia('(max-width:760px)');
+  const scrollCue = document.querySelector('#scroll-cue-fill');
   let active = 0;
   let frame = false;
   let leaveTimer;
@@ -10,7 +12,8 @@
     moments.forEach((moment, index) => {
       const video = moment.querySelector('video');
       if (!video) return;
-      if (index === active && !reduceMotion.matches) video.play().catch(() => {});
+      const shouldPlay = mobileFlow.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
+      if (shouldPlay && !reduceMotion.matches) video.play().catch(() => {});
       else video.pause();
     });
   }
@@ -34,14 +37,26 @@
   }
   function updateScroll() {
     frame = false;
+    if (mobileFlow.matches) {
+      moments.forEach(moment => {
+        moment.inert = false;
+        moment.removeAttribute('aria-hidden');
+      });
+      syncVideo();
+      return;
+    }
     const unit = prologue.offsetHeight / moments.length;
     const position = Math.max(0, Math.min(moments.length - .001, (scrollY - prologue.offsetTop) / unit));
     showMoment(Math.round(position));
+    scrollCue.style.setProperty('--scroll-progress', String(position / (moments.length - 1)));
     const fraction = position - Math.floor(position);
     moments[active].style.setProperty('--drift', fraction.toFixed(3));
   }
   addEventListener('scroll', () => { if (!frame) { frame = true; requestAnimationFrame(updateScroll); } }, {passive:true});
   addEventListener('resize', updateScroll);
+  mobileFlow.addEventListener('change', () => {
+    updateScroll();
+  });
   moments.forEach((moment, index) => { moment.inert = index !== 0; });
   updateScroll();
   syncVideo();
@@ -103,7 +118,7 @@
     const width = deck.clientWidth;
     const cardWidth = cards[0].offsetWidth;
     const mobile = matchMedia('(max-width:760px)').matches;
-    const center = mobile ? 8 : Math.max(145, (width - cardWidth) / 2);
+    const center = mobile ? Math.max(0, (width - cardWidth) / 2) : Math.max(145, (width - cardWidth) / 2);
     const rightGap = mobile ? 16 : 35;
     const right = mobile ? width * .63 : Math.min(width * .66, width - cardWidth * .93 - (cards.length - 2) * rightGap);
     const left = mobile ? -cardWidth * .8 : 0;
