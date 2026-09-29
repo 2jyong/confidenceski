@@ -7,14 +7,40 @@
   let active = 0;
   let frame = false;
   let leaveTimer;
+  let mobilePrepared = false;
+  let lockedMobileWidth = 0;
+
+  function lockMobileSceneHeight() {
+    if (!mobileFlow.matches) return;
+    const width = document.documentElement.clientWidth;
+    if (width === lockedMobileWidth) return;
+    lockedMobileWidth = width;
+    const height = Math.round(window.visualViewport?.height || innerHeight);
+    document.documentElement.style.setProperty('--mobile-scene-height', `${Math.max(560, height)}px`);
+  }
+
+  function updateMobileScenes() {
+    if (!mobilePrepared) {
+      moments.forEach(moment => {
+        moment.inert = false;
+        moment.removeAttribute('aria-hidden');
+      });
+      mobilePrepared = true;
+    }
+    const revealLine = innerHeight * .88;
+    moments.forEach(moment => {
+      if (moment.getBoundingClientRect().top < revealLine) moment.classList.add('mobile-visible');
+    });
+  }
 
   function syncVideo() {
     moments.forEach((moment, index) => {
       const video = moment.querySelector('video');
       if (!video) return;
       const shouldPlay = mobileFlow.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
-      if (shouldPlay && !reduceMotion.matches) video.play().catch(() => {});
-      else video.pause();
+      if (shouldPlay && !reduceMotion.matches) {
+        if (video.paused) video.play().catch(() => {});
+      } else if (!video.paused) video.pause();
     });
   }
   function showMoment(index) {
@@ -38,12 +64,18 @@
   function updateScroll() {
     frame = false;
     if (mobileFlow.matches) {
-      moments.forEach(moment => {
-        moment.inert = false;
-        moment.removeAttribute('aria-hidden');
-      });
+      updateMobileScenes();
       syncVideo();
       return;
+    }
+    if (mobilePrepared) {
+      mobilePrepared = false;
+      moments.forEach((moment, index) => {
+        moment.classList.remove('mobile-visible');
+        moment.inert = index !== active;
+        if (index !== active) moment.setAttribute('aria-hidden', 'true');
+        else moment.removeAttribute('aria-hidden');
+      });
     }
     const unit = prologue.offsetHeight / moments.length;
     const position = Math.max(0, Math.min(moments.length - .001, (scrollY - prologue.offsetTop) / unit));
@@ -53,15 +85,26 @@
     moments[active].style.setProperty('--drift', fraction.toFixed(3));
   }
   addEventListener('scroll', () => { if (!frame) { frame = true; requestAnimationFrame(updateScroll); } }, {passive:true});
-  addEventListener('resize', updateScroll);
+  addEventListener('resize', () => { lockMobileSceneHeight(); updateScroll(); });
   mobileFlow.addEventListener('change', () => {
+    lockMobileSceneHeight();
     updateScroll();
   });
   moments.forEach((moment, index) => { moment.inert = index !== 0; });
+  lockMobileSceneHeight();
   updateScroll();
   syncVideo();
   reduceMotion.addEventListener('change', syncVideo);
-  setTimeout(() => document.documentElement.classList.add('intro-done'), 3900);
+  const introTimer = setTimeout(() => document.documentElement.classList.add('intro-done'), 3900);
+  if (mobileFlow.matches && !document.documentElement.classList.contains('skip-opening')) {
+    function finishIntroOnScroll() {
+      if (scrollY <= 8) return;
+      document.documentElement.classList.add('skip-opening', 'intro-done');
+      clearTimeout(introTimer);
+      removeEventListener('scroll', finishIntroOnScroll);
+    }
+    addEventListener('scroll', finishIntroOnScroll, {passive:true});
+  }
 
   document.querySelector('#enter-site').addEventListener('click', () => {
     document.querySelector('#academy').scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});

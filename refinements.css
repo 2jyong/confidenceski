@@ -2,6 +2,7 @@
 .scroll-cue{position:absolute;z-index:12;left:clamp(25px,4vw,70px);bottom:30px;display:flex;align-items:center;gap:15px;color:#fff;font-size:12px;font-weight:800;letter-spacing:.01em;text-shadow:0 1px 8px #000;pointer-events:none;opacity:.85}
 .scroll-cue i{display:block;width:90px;height:2px;background:rgba(255,255,255,.4)}
 .scroll-cue b{display:block;width:100%;height:100%;background:var(--red);transform:scaleX(var(--scroll-progress,0));transform-origin:left;transition:transform .08s linear}
+.opening-vertical{height:100%}
 .moment-first h1{font-size:clamp(66px,7.7vw,132px)}
 .moment-proof h2{font-size:clamp(52px,6.8vw,112px)}
 .proof-backdrop img{display:none}
@@ -19,16 +20,14 @@
   .prologue{height:auto!important}
   .prologue-stage{position:relative!important;height:auto!important;overflow:visible!important;isolation:auto}
   .prologue-stage .moment,.prologue-stage .moment:not(.is-active):not(.is-leaving),.prologue-stage .moment.is-active{
-    position:relative!important;inset:auto!important;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;clip-path:none!important;transition:none!important;min-height:660px;min-height:max(660px,100svh);overflow:hidden
+    position:relative!important;inset:auto!important;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;clip-path:none!important;transition:none!important;min-height:660px;min-height:max(660px,var(--mobile-scene-height,100svh));overflow:hidden
   }
-  .prologue-stage .moment-first{min-height:600px;min-height:100svh}
-  .prologue-stage .moment-answer{display:flex!important;flex-direction:column;min-height:0}
-  .answer-photo{height:auto;aspect-ratio:1.28;flex:none;clip-path:none!important}
+  .prologue-stage .moment-first{min-height:600px;min-height:var(--mobile-scene-height,100svh)}
+  .prologue-stage .moment-answer{display:flex!important;flex-direction:column;min-height:0!important}
+  .answer-photo{height:auto;aspect-ratio:1.28;flex:none}
   .answer-photo img{object-fit:contain;object-position:center;background:#111;transform:none}
   .answer-photo::after{background:linear-gradient(0deg,#0b0b0b,transparent 28%)}
-  .answer-copy{opacity:1!important;transform:none!important;padding:28px 25px 75px;align-self:auto}
-  .prologue-stage .moment-question .reveal,.prologue-stage .moment-answer .reveal,.prologue-stage .moment-proof .reveal,.prologue-stage .moment-gateway .reveal,.prologue-stage .moment-proof .proof-stat{clip-path:none!important;opacity:1!important;transform:none!important;transition:none!important}
-  .question-rail,.proof-rail{transform:none!important}
+  .answer-copy{padding:28px 25px 75px;align-self:auto}
   .moment-question .question-copy,.moment-proof .proof-copy,.moment-gateway .gateway-copy{top:auto;bottom:9%;transform:none}
   .moment-question .question-copy{bottom:16%}
   .prologue-stage .moment-proof{display:block!important;min-height:0!important}
@@ -114,14 +113,59 @@
 .site-footer nav{flex-shrink:0}
 .site-footer nav a{white-space:nowrap}
 @media(max-width:760px){
-  .close-feature{min-height:clamp(640px,100svh,790px);padding:80px 22px 76px}
-  .close-feature>img{object-position:center 26%}
-  .close-feature::before{background:linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.05) 36%,rgba(0,0,0,.72) 64%,rgba(0,0,0,.96) 100%)}
+  .close-feature{display:block;min-height:0;padding:0 0 76px}
+  .close-feature>img{position:relative;inset:auto;z-index:0;width:100%;height:auto;object-fit:contain;object-position:center;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+  .close-feature::before{display:none}
+  .close-feature>div{padding:18px 22px 0}
   .close-feature h2{font-size:clamp(35px,8.2vw,58px);line-height:1.18}
   .close-feature .solid-link{font-size:16px;gap:35px}
 }
 @media(max-width:360px){
-  .close-feature{min-height:640px;padding-inline:16px}
+  .close-feature{min-height:0;padding:0 0 64px}
+  .close-feature>div{padding-inline:16px}
   .close-feature h2{font-size:33px}
   .close-feature .micro{font-size:12px}
+}
+
+/* Mobile scenes stay in normal document flow, with a distinct entrance for each story beat. */
+@media(max-width:760px) and (prefers-reduced-motion:no-preference){
+  .js .moment-question .reveal{opacity:.65;clip-path:none;transform:translateY(20px);transition:opacity .45s,transform .6s cubic-bezier(.22,.75,.14,1)}
+  .js .moment-question.mobile-visible .reveal{opacity:1;transform:none}
+  .moment-question.mobile-visible .question-rail{transform:scaleX(1);transition-delay:0s}
+  .moment-question.mobile-visible .micro{transition-delay:.1s}
+  .moment-question.mobile-visible h2 span:first-child{transition-delay:.18s}
+  .moment-question.mobile-visible h2 span:last-child{transition-delay:.28s}
+  .moment-question.mobile-visible p:last-child{transition-delay:.38s}
+
+  .js .moment-answer .answer-photo{clip-path:none}
+  .js .moment-answer .answer-photo img{filter:brightness(.52) saturate(.65);transform:scale(1.04);transition:filter .65s,transform .75s cubic-bezier(.22,.75,.14,1)}
+  .js .moment-answer.mobile-visible .answer-photo img{filter:none;transform:none}
+  .js .moment-answer .answer-copy{opacity:.65;transform:translateY(24px);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
+  .js .moment-answer.mobile-visible .answer-copy{opacity:1;transform:none;transition-delay:.18s}
+
+  .js .moment-proof .proof-backdrop img{opacity:.48;filter:grayscale(.55);transition:opacity .7s,filter .7s}
+  .js .moment-proof.mobile-visible .proof-backdrop img{opacity:1;filter:none}
+  .js .moment-proof .reveal{opacity:.65;transform:translateY(24px);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
+  .js .moment-proof.mobile-visible .reveal{opacity:1;transform:none}
+  .moment-proof.mobile-visible .micro{transition-delay:.12s}
+  .moment-proof.mobile-visible h2 span:first-child{transition-delay:.2s}
+  .moment-proof.mobile-visible h2 span:last-child{transition-delay:.3s}
+  .moment-proof.mobile-visible p:not(.micro){transition-delay:.4s}
+  .js .moment-proof .proof-stat{opacity:.65;transform:translateY(24px);transition:opacity .5s,transform .6s}
+  .js .moment-proof.mobile-visible .proof-stat{opacity:1;transform:none;transition-delay:.48s}
+
+  .moment-gateway::before{content:'';position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.55);transform:translateX(0);transition:transform .8s cubic-bezier(.22,.75,.14,1);pointer-events:none}
+  .moment-gateway.mobile-visible::before{transform:translateX(-101%)}
+  .moment-gateway .gateway-copy{z-index:2}
+  .js .moment-gateway .reveal{opacity:.65;transform:translateY(24px);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
+  .js .moment-gateway.mobile-visible .reveal{opacity:1;transform:none}
+  .moment-gateway.mobile-visible .micro{transition-delay:.17s}
+  .moment-gateway.mobile-visible h2 span:first-child{transition-delay:.27s}
+  .moment-gateway.mobile-visible h2 span:last-child{transition-delay:.38s}
+  .moment-gateway.mobile-visible .enter-button{transition-delay:.48s}
+}
+@media(max-width:760px) and (prefers-reduced-motion:reduce){
+  .prologue-stage .moment .reveal,.prologue-stage .moment .answer-copy,.prologue-stage .moment .proof-stat{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+  .prologue-stage .moment .answer-photo,.prologue-stage .moment .proof-backdrop img{clip-path:none!important;transition:none!important}
+  .moment-question .question-rail{transform:scaleX(1)!important}
 }
