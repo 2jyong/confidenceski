@@ -29,8 +29,9 @@
   }
 
   function updateHandoff() {
-    if (mobileFlow.matches) {
+    if (mobileFlow.matches && reduceMotion.matches) {
       document.documentElement.classList.add('page-two-ready');
+      document.documentElement.classList.add('page-two-header-ready');
       return;
     }
     const stageHeight = stage.offsetHeight;
@@ -52,6 +53,7 @@
     lockedMobileWidth = width;
     const height = Math.round(window.visualViewport?.height || innerHeight);
     document.documentElement.style.setProperty('--mobile-scene-height', `${Math.max(560, height)}px`);
+    document.documentElement.style.setProperty('--mobile-story-height', `${Math.max(560, height) * (moments.length + 1)}px`);
   }
 
   function updateMobileScenes() {
@@ -80,7 +82,7 @@
     moments.forEach((moment, index) => {
       const video = moment.querySelector('video');
       if (!video) return;
-      const shouldPlay = mobileFlow.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
+      const shouldPlay = mobileFlow.matches && reduceMotion.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
       if (shouldPlay && !reduceMotion.matches) {
         if (video.paused) video.play().catch(() => {});
       } else if (!video.paused) video.pause();
@@ -98,6 +100,7 @@
     previous.setAttribute('aria-hidden', 'true');
     const next = moments[index];
     next.classList.add('is-active');
+    if (mobileFlow.matches) next.classList.add('mobile-visible', 'mobile-media-visible');
     next.inert = false;
     next.removeAttribute('aria-hidden');
     active = index;
@@ -108,7 +111,7 @@
   function updateScroll() {
     frame = false;
     updateHandoff();
-    if (mobileFlow.matches) {
+    if (mobileFlow.matches && reduceMotion.matches) {
       updateMobileScenes();
       syncVideo();
       return;
@@ -136,10 +139,11 @@
     updateScroll();
   });
   moments.forEach((moment, index) => { moment.inert = index !== 0; });
+  if (mobileFlow.matches && !reduceMotion.matches) moments[0].classList.add('mobile-visible', 'mobile-media-visible');
   lockMobileSceneHeight();
   updateScroll();
   syncVideo();
-  reduceMotion.addEventListener('change', syncVideo);
+  reduceMotion.addEventListener('change', () => { updateScroll(); syncVideo(); });
   const introTimer = setTimeout(() => document.documentElement.classList.add('intro-done'), 3900);
   if (mobileFlow.matches && !document.documentElement.classList.contains('skip-opening')) {
     function finishIntroOnScroll() {
@@ -152,14 +156,14 @@
   }
 
   document.querySelector('#enter-site').addEventListener('click', () => {
-    if (mobileFlow.matches) {
+    if (mobileFlow.matches && reduceMotion.matches) {
       header.scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
     } else {
       const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
       scrollTo({top:end + 2,behavior:reduceMotion.matches?'instant':'smooth'});
     }
   });
-  if (location.hash === '#academy' && !mobileFlow.matches) {
+  if (location.hash === '#academy' && !(mobileFlow.matches && reduceMotion.matches)) {
     addEventListener('load', () => setTimeout(() => {
       const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
       if (Math.abs(scrollY - end) < 110) {

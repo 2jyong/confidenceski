@@ -1,0 +1,80 @@
+/* A locked pixel height keeps the sticky story stable as mobile browser chrome moves. */
+.prologue.stage-passed,.prologue.stage-passed .prologue-stage,.prologue.stage-passed .moment{pointer-events:none!important}
+.prologue.stage-passed .prologue-stage .moment.is-active{pointer-events:none!important}
+@media (max-width:760px) and (prefers-reduced-motion:no-preference){
+  .prologue{height:var(--mobile-story-height,600svh)!important;z-index:90!important}
+  .prologue.stage-passed{pointer-events:none}
+  .prologue-stage{--gap:0%;position:sticky!important;top:0!important;height:var(--mobile-scene-height,100svh)!important;overflow:hidden!important;isolation:isolate!important;-webkit-mask-image:linear-gradient(90deg,#000 0 calc(50% - var(--gap)),transparent calc(50% - var(--gap)) calc(50% + var(--gap)),#000 calc(50% + var(--gap)) 100%)!important;mask-image:linear-gradient(90deg,#000 0 calc(50% - var(--gap)),transparent calc(50% - var(--gap)) calc(50% + var(--gap)),#000 calc(50% + var(--gap)) 100%)!important}
+  .prologue-stage::before,.prologue-stage::after{content:'';position:absolute;z-index:24;top:0;bottom:0;width:2px;background:#f0363e;box-shadow:0 0 20px #e72c32;opacity:0;pointer-events:none}
+  .prologue-stage::before{left:calc(50% - var(--gap))}
+  .prologue-stage::after{left:calc(50% + var(--gap))}
+  .is-crossing .prologue-stage::before,.is-crossing .prologue-stage::after{opacity:1}
+  .prologue-stage .moment,.prologue-stage .moment:not(.is-active):not(.is-leaving),.prologue-stage .moment.is-active{position:absolute!important;inset:0!important;min-height:0!important;height:100%!important;overflow:hidden!important;pointer-events:none!important;visibility:hidden!important;opacity:0!important}
+  .prologue-stage .moment.is-active,.prologue-stage .moment.is-leaving{visibility:visible!important;opacity:1!important}
+  .prologue-stage .moment.is-active{pointer-events:auto!important}
+  .prologue-stage .moment-first,.prologue-stage .moment-question,.prologue-stage .moment-proof,.prologue-stage .moment-gateway{display:block!important}
+  .prologue-stage .moment.moment-answer,.prologue-stage .moment.moment-answer.is-active,.prologue-stage .moment.moment-answer:not(.is-active):not(.is-leaving){display:grid!important;grid-template-columns:1fr;grid-template-rows:37% 63%;flex-direction:initial}
+  .prologue-stage .moment-question:not(.is-active):not(.is-leaving){opacity:0!important}
+  .prologue-stage .moment-question.is-active{opacity:1!important}
+  .prologue-stage .moment-answer:not(.is-active):not(.is-leaving){clip-path:inset(0 0 0 100%)!important}
+  .prologue-stage .moment-answer.is-active{clip-path:inset(0)!important}
+  .prologue-stage .moment-proof:not(.is-active):not(.is-leaving){clip-path:inset(100% 0 0)!important}
+  .prologue-stage .moment-proof.is-active{clip-path:inset(0)!important}
+  .prologue-stage .moment-gateway:not(.is-active):not(.is-leaving){clip-path:circle(0 at 50% 50%)!important}
+  .prologue-stage .moment-gateway.is-active{clip-path:circle(150% at 50% 50%)!important}
+  .scroll-cue{display:flex;left:20px;right:20px;bottom:max(17px,env(safe-area-inset-bottom));font-size:10px;opacity:.92;gap:10px}
+  .scroll-cue i{flex:1;width:auto}
+  .moment-first .first-copy{left:22px;right:22px;top:52%;max-width:none}
+  .moment-first h1{font-size:clamp(40px,10.4vw,72px);line-height:1.14}
+  .moment-first .moment-video{object-position:51% center}
+  .moment-question .question-rail{top:30%;left:22px;width:calc(100% - 44px)}
+  .moment-question .question-copy{top:49%;bottom:auto;left:22px;right:22px;transform:translateY(-50%)}
+  .moment-question .question-copy h2{font-size:clamp(43px,11vw,76px)}
+  .moment-question .question-copy>p:last-child{max-width:460px}
+  .prologue-stage .moment-answer .answer-photo{height:100%;aspect-ratio:auto;min-height:0;clip-path:inset(0 100% 0 0)}
+  .prologue-stage .moment-answer.is-active .answer-photo{clip-path:inset(0)}
+  .moment-answer .answer-photo img{width:100%;height:100%;object-fit:contain;background:#141414;transform:none!important}
+  .moment-answer .answer-photo::after{background:linear-gradient(0deg,#0b0b0b,transparent 24%)}
+  .prologue-stage .moment-answer .answer-copy{align-self:center;padding:8px 22px 38px;opacity:0;transform:translateX(45px)}
+  .prologue-stage .moment-answer.is-active .answer-copy{opacity:1;transform:none}
+  .moment-answer .answer-copy h2{font-size:clamp(36px,9.4vw,64px);line-height:1.18}
+  .moment-answer .answer-copy>p:not(.micro){font-size:clamp(13px,3.7vw,16px);line-height:1.6;margin:16px 0}
+  .prologue-stage .moment-proof .proof-backdrop{position:absolute;inset:0 0 auto;height:38%;background:#050505}
+  .prologue-stage .moment-proof .proof-backdrop img{display:block;width:100%;height:100%;object-fit:contain;background:#050505}
+  .prologue-stage .moment-proof .proof-copy{position:absolute;top:45%;left:0;right:0;bottom:auto;padding:17px 22px 18px;background:#050505;transform:none}
+  .moment-proof .proof-copy h2{font-size:clamp(29px,7.6vw,52px);line-height:1.17}
+  .moment-proof .proof-copy>p:not(.micro){font-size:clamp(12px,3.4vw,16px);line-height:1.55;margin:13px 0}
+  .moment-proof .proof-stat{margin-top:13px;gap:15px;padding-top:10px}
+  .moment-proof .proof-stat b{font-size:clamp(59px,17vw,95px)}
+  .moment-proof .proof-stat>span{font-size:11px;line-height:1.4}
+  .moment-gateway .gateway-copy{left:22px;right:22px;top:52%;bottom:auto;transform:translateY(-50%)}
+  .moment-gateway .gateway-copy h2{font-size:clamp(38px,9.2vw,66px);line-height:1.17}
+  .moment-gateway .enter-button{margin-top:25px}
+  .page-two-veil{display:grid;position:fixed;inset:0;z-index:70;place-items:center;visibility:hidden;opacity:0;pointer-events:none;background:radial-gradient(circle at center,#2b0c0f,#080808 65%);transition:opacity .4s,visibility 0s .4s}
+  .page-two-veil img{position:relative;z-index:1;width:clamp(155px,50vw,260px);filter:drop-shadow(0 10px 35px #000);transform:scale(.72) rotate(-7deg);transition:transform .7s cubic-bezier(.2,.7,.13,1)}
+  .page-two-veil span{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ed3038;box-shadow:0 0 40px #ed3038;transform:scaleY(0);transition:transform .7s .1s}
+  .prologue.is-crossing ~ .page-two-veil{visibility:visible;opacity:1;transition:opacity .25s}
+  .prologue.is-crossing ~ .page-two-veil img{transform:scale(1) rotate(0)}
+  .prologue.is-crossing ~ .page-two-veil span{transform:scaleY(1)}
+  html.page-two-ready .prologue.is-crossing ~ .page-two-veil{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+  .chapter-header,.js .chapter-header{position:sticky;top:0;margin-top:calc(-1 * var(--mobile-scene-height,100svh));z-index:80;opacity:0;transform:none;transition:opacity .48s}
+  .js.page-two-header-ready .chapter-header{opacity:1}
+  .chapter-hero{isolation:isolate}
+  .chapter-hero::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:#080808;clip-path:inset(0);transition:clip-path .95s cubic-bezier(.15,.72,.11,1)}
+  .page-two-ready .chapter-hero::after{clip-path:inset(0 0 0 100%)}
+  .chapter-hero::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;z-index:4;background:#ef3038;box-shadow:0 0 35px #e72c32;opacity:0;pointer-events:none}
+  .page-two-ready .chapter-hero::before{animation:page-two-scan .95s .1s both}
+  .chapter-hero .chapter-visual{clip-path:inset(0 0 100% 0)}
+  .page-two-ready .chapter-hero.visible .chapter-visual{clip-path:inset(0)}
+  .chapter-copy h2 span,.chapter-copy h2 em{display:block;opacity:0;transform:translateY(42px);transition:opacity .55s,transform .8s cubic-bezier(.2,.72,.13,1)}
+  .page-two-ready .chapter-hero.visible .chapter-copy h2 span{opacity:1;transform:none;transition-delay:.25s}
+  .page-two-ready .chapter-hero.visible .chapter-copy h2 em{opacity:1;transform:none;transition-delay:.42s}
+}
+@media (max-width:760px) and (max-height:690px) and (prefers-reduced-motion:no-preference){
+  .prologue-stage .moment.moment-answer,.prologue-stage .moment.moment-answer.is-active,.prologue-stage .moment.moment-answer:not(.is-active):not(.is-leaving){grid-template-rows:32% 68%}
+  .prologue-stage .moment-proof .proof-backdrop{height:29%}
+  .prologue-stage .moment-proof .proof-copy{top:35%}
+  .moment-proof .proof-copy h2{font-size:clamp(27px,7vw,43px)}
+  .moment-proof .proof-copy>p:not(.micro){margin:9px 0}
+  .moment-proof .proof-stat{margin-top:8px}
+}
