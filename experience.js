@@ -4,7 +4,7 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const mobileFlow = matchMedia('(max-width:760px)');
   const scrollCue = document.querySelector('#scroll-cue-fill');
-  const bridge = document.querySelector('.academy-bridge');
+  const stage = document.querySelector('.prologue-stage');
   const header = document.querySelector('.chapter-header');
   const counter = document.querySelector('.proof-stat [data-count-to]');
   let active = 0;
@@ -28,15 +28,21 @@
     requestAnimationFrame(tick);
   }
 
-  function updateBridge() {
-    const box = bridge.getBoundingClientRect();
-    const travel = innerHeight + box.height;
-    const part = Math.max(0, Math.min(1, (innerHeight - box.top) / travel));
-    bridge.style.setProperty('--part', part.toFixed(3));
-    bridge.style.setProperty('--open', Math.min(1, part * 2.3).toFixed(3));
-    bridge.style.setProperty('--bridge-opacity', Math.max(.2, Math.min(1, part * 4, (1 - part) * 4)).toFixed(3));
-    prologue.classList.toggle('gateway-exiting', part > .05 && part < .75);
-    if (header.getBoundingClientRect().top < innerHeight * .92) header.classList.add('bridge-visible');
+  function updateHandoff() {
+    if (mobileFlow.matches) {
+      document.documentElement.classList.add('page-two-ready');
+      return;
+    }
+    const stageHeight = stage.offsetHeight;
+    const end = prologue.offsetTop + prologue.offsetHeight - stageHeight;
+    const start = end - stageHeight * .62;
+    const exit = Math.max(0, Math.min(1, (scrollY - start) / (end - start)));
+    stage.style.setProperty('--gap', `${(exit * 50).toFixed(2)}%`);
+    stage.style.setProperty('--exit', exit.toFixed(3));
+    prologue.classList.toggle('is-crossing', exit > 0 && exit < 1);
+    prologue.classList.toggle('stage-passed', exit >= .99);
+    document.documentElement.classList.toggle('page-two-ready', exit > .74);
+    document.documentElement.classList.toggle('page-two-header-ready', exit >= .99);
   }
 
   function lockMobileSceneHeight() {
@@ -57,8 +63,15 @@
       mobilePrepared = true;
     }
     const revealLine = innerHeight * .88;
-    moments.forEach(moment => {
-      if (moment.getBoundingClientRect().top < revealLine) moment.classList.add('mobile-visible');
+    const copyLines = [.88, .42, .55, .6, .45];
+    moments.forEach((moment, index) => {
+      const rect = moment.getBoundingClientRect();
+      if (rect.top < revealLine) moment.classList.add('mobile-media-visible');
+      if (rect.top < innerHeight * copyLines[index]) moment.classList.add('mobile-visible');
+      if (!reduceMotion.matches && rect.bottom > -innerHeight && rect.top < innerHeight * 2) {
+        const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height)));
+        moment.style.setProperty('--parallax-y', `${Math.round((.5 - progress) * 38)}px`);
+      }
     });
     if (moments[3].classList.contains('mobile-visible')) runCounter();
   }
@@ -94,7 +107,7 @@
   }
   function updateScroll() {
     frame = false;
-    updateBridge();
+    updateHandoff();
     if (mobileFlow.matches) {
       updateMobileScenes();
       syncVideo();
@@ -109,10 +122,10 @@
         else moment.removeAttribute('aria-hidden');
       });
     }
-    const unit = prologue.offsetHeight / moments.length;
+    const unit = prologue.offsetHeight / (moments.length + 1);
     const position = Math.max(0, Math.min(moments.length - .001, (scrollY - prologue.offsetTop) / unit));
     showMoment(Math.round(position));
-    scrollCue.style.setProperty('--scroll-progress', String(position / (moments.length - 1)));
+    scrollCue.style.setProperty('--scroll-progress', String(Math.min(1, position / (moments.length - 1))));
     const fraction = position - Math.floor(position);
     moments[active].style.setProperty('--drift', fraction.toFixed(3));
   }
@@ -139,8 +152,22 @@
   }
 
   document.querySelector('#enter-site').addEventListener('click', () => {
-    document.querySelector('#academy').scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
+    if (mobileFlow.matches) {
+      header.scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
+    } else {
+      const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
+      scrollTo({top:end + 2,behavior:reduceMotion.matches?'instant':'smooth'});
+    }
   });
+  if (location.hash === '#academy' && !mobileFlow.matches) {
+    addEventListener('load', () => setTimeout(() => {
+      const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
+      if (Math.abs(scrollY - end) < 110) {
+        scrollTo({top:end + 2,behavior:'instant'});
+        updateScroll();
+      }
+    }, 120), {once:true});
+  }
   const menuToggle = document.querySelector('.menu-toggle');
   menuToggle.addEventListener('click', () => {
     const open = header.classList.toggle('menu-open');

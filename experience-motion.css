@@ -1,23 +1,6 @@
-/* A separate passage between the opening film and the academy pages. */
-.chapter-header{position:relative;top:auto}
 .close-feature{overflow:hidden}
-.academy-bridge{--part:0;position:relative;min-height:76svh;min-height:max(560px,76svh);overflow:hidden;isolation:isolate;display:grid;place-items:center;background:#070707}
-.bridge-ground{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#331014 0,#100809 42%,#050505 75%);transform:scale(calc(1.12 - var(--part)*.12))}
-.bridge-shutter{position:absolute;top:-8%;bottom:-8%;width:51%;z-index:2;background:#050505;border-inline:1px solid #911e25;will-change:transform}
-.bridge-shutter-left{left:0;transform:translateX(calc(var(--open)*-103%)) skewY(calc(var(--part)*-4deg))}
-.bridge-shutter-right{right:0;transform:translateX(calc(var(--open)*103%)) skewY(calc(var(--part)*4deg))}
-.bridge-scar{position:absolute;z-index:0;left:50%;top:0;bottom:0;width:2px;background:#ed3038;box-shadow:0 0 36px #ed3038;transform:scaleY(calc(1 - var(--part)*1.2));transform-origin:center}
-.bridge-center{position:relative;z-index:1;text-align:center;padding:30px;opacity:var(--bridge-opacity,.95);transform:translateY(calc((1 - var(--part))*35px));will-change:transform,opacity}
-.bridge-center img{width:clamp(145px,20vw,280px);height:auto;margin:auto auto 22px}
-.bridge-center p{font-size:clamp(28px,4.8vw,70px);font-weight:900;letter-spacing:-.07em;line-height:1.2;margin:0;word-break:keep-all}
-.bridge-rule{display:block;height:3px;width:clamp(100px,18vw,250px);background:#ef303a;margin:26px auto 0;transform:scaleX(var(--part));transform-origin:center}
-.gateway-exiting .moment-gateway .moment-video{filter:grayscale(1) brightness(.36);transform:scale(1.1)}
-.moment-gateway .gateway-copy{transition:opacity .45s,transform .6s}
-.gateway-exiting .moment-gateway .gateway-copy{opacity:.35;transform:translateY(-57%) scale(.96);transition:opacity .45s,transform .6s}
 .proof-stat b [data-count-to]{font:inherit;line-height:inherit}
 .chapter-header{border-top:2px solid #e12630}
-.js .chapter-header:not(.bridge-visible){opacity:.65;transform:translateY(-36px)}
-.chapter-header.bridge-visible{opacity:1;transform:none;transition:opacity .65s,transform .7s cubic-bezier(.18,.72,.17,1)}
 
 /* The academy chapters use different visual entrances instead of a shared fade. */
 .chapter-hero .chapter-visual{clip-path:inset(0 0 0 35%);transition:clip-path 1.05s cubic-bezier(.2,.72,.15,1)}
@@ -60,9 +43,6 @@
 .text-link span,.solid-link span{transition:transform .25s}
 .text-link:hover span,.solid-link:hover span{transform:translate(4px,-4px)}
 @media(max-width:760px){
-  .academy-bridge{min-height:max(430px,62svh)}
-  .bridge-center p{font-size:clamp(27px,7.8vw,44px)}
-  .chapter-header{position:relative}
   .chapter-hero .chapter-visual{clip-path:inset(0 0 35% 0)}
   .chapter-hero.visible .chapter-visual{clip-path:inset(0)}
   .lesson-feature .feature-media{clip-path:inset(0 100% 0 0)}
@@ -72,11 +52,7 @@
   .coach-feature.visible .coach-deck{transform:none}
   .coach-swipe-hint{display:block;text-align:center;color:#ccc;font-size:13px;font-weight:700;letter-spacing:.02em;margin:4px 0 0}
   .coach-feature.visible .coach-swipe-hint{opacity:1;transform:none}
-  .bridge-center img{width:175px}
 }
 @media(prefers-reduced-motion:reduce){
-  .bridge-shutter-left{transform:translateX(-103%)}.bridge-shutter-right{transform:translateX(103%)}.bridge-scar{display:none}
-  .bridge-center{opacity:1;transform:none}.bridge-rule{transform:none}
-  .academy-bridge{min-height:280px}
   .chapter-header,.chapter-hero .chapter-visual,.chapter-hero .chapter-copy h2,.lesson-feature .feature-media,.lesson-feature .feature-side h2,.season-feature .season-header h2,.season-feature .season-steps::before,.season-feature .season-steps button,.season-feature .season-image,.coach-feature .coach-heading h2,.coach-feature .coach-deck,.close-feature>img,.close-feature h2{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
 }
