@@ -4,11 +4,40 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const mobileFlow = matchMedia('(max-width:760px)');
   const scrollCue = document.querySelector('#scroll-cue-fill');
+  const bridge = document.querySelector('.academy-bridge');
+  const header = document.querySelector('.chapter-header');
+  const counter = document.querySelector('.proof-stat [data-count-to]');
   let active = 0;
   let frame = false;
   let leaveTimer;
   let mobilePrepared = false;
   let lockedMobileWidth = 0;
+  let counterStarted = false;
+
+  function runCounter() {
+    if (counterStarted || !counter) return;
+    counterStarted = true;
+    if (reduceMotion.matches) { counter.textContent = '80'; return; }
+    const start = performance.now();
+    const tick = now => {
+      const t = Math.min(1, (now - start) / 850);
+      counter.textContent = String(Math.round(80 * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    counter.textContent = '0';
+    requestAnimationFrame(tick);
+  }
+
+  function updateBridge() {
+    const box = bridge.getBoundingClientRect();
+    const travel = innerHeight + box.height;
+    const part = Math.max(0, Math.min(1, (innerHeight - box.top) / travel));
+    bridge.style.setProperty('--part', part.toFixed(3));
+    bridge.style.setProperty('--open', Math.min(1, part * 2.3).toFixed(3));
+    bridge.style.setProperty('--bridge-opacity', Math.max(.2, Math.min(1, part * 4, (1 - part) * 4)).toFixed(3));
+    prologue.classList.toggle('gateway-exiting', part > .05 && part < .75);
+    if (header.getBoundingClientRect().top < innerHeight * .92) header.classList.add('bridge-visible');
+  }
 
   function lockMobileSceneHeight() {
     if (!mobileFlow.matches) return;
@@ -31,6 +60,7 @@
     moments.forEach(moment => {
       if (moment.getBoundingClientRect().top < revealLine) moment.classList.add('mobile-visible');
     });
+    if (moments[3].classList.contains('mobile-visible')) runCounter();
   }
 
   function syncVideo() {
@@ -58,11 +88,13 @@
     next.inert = false;
     next.removeAttribute('aria-hidden');
     active = index;
+    if (index === 3) runCounter();
     syncVideo();
     leaveTimer = setTimeout(() => previous.classList.remove('is-leaving'), reduceMotion.matches ? 0 : 1150);
   }
   function updateScroll() {
     frame = false;
+    updateBridge();
     if (mobileFlow.matches) {
       updateMobileScenes();
       syncVideo();
@@ -109,7 +141,6 @@
   document.querySelector('#enter-site').addEventListener('click', () => {
     document.querySelector('#academy').scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
   });
-  const header = document.querySelector('.chapter-header');
   const menuToggle = document.querySelector('.menu-toggle');
   menuToggle.addEventListener('click', () => {
     const open = header.classList.toggle('menu-open');
@@ -157,6 +188,8 @@
   let hoverTimer;
   let hoverCandidate = -1;
   let hoverLockedUntil = 0;
+  let swipeStart = null;
+  let swipeFinishedAt = 0;
   function positionCards() {
     const width = deck.clientWidth;
     const cardWidth = cards[0].offsetWidth;
@@ -209,8 +242,22 @@
       hoverTimer = setTimeout(() => selectCoach(index), 155);
     });
     card.addEventListener('pointerleave', () => { clearTimeout(hoverTimer); if (hoverCandidate === index) hoverCandidate = -1; });
-    card.addEventListener('click', () => { clearTimeout(hoverTimer); hoverCandidate = -1; selectCoach(index); });
+    card.addEventListener('click', event => { if (performance.now() - swipeFinishedAt < 500) { event.preventDefault(); return; } clearTimeout(hoverTimer); hoverCandidate = -1; selectCoach(index); });
   });
+  deck.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'touch') return;
+    swipeStart = {x:event.clientX, y:event.clientY, id:event.pointerId};
+  }, {passive:true});
+  deck.addEventListener('pointerup', event => {
+    if (!swipeStart || swipeStart.id !== event.pointerId) return;
+    const dx = event.clientX - swipeStart.x;
+    const dy = event.clientY - swipeStart.y;
+    swipeStart = null;
+    if (Math.abs(dx) < 42 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+    swipeFinishedAt = performance.now();
+    selectCoach(selected + (dx < 0 ? 1 : -1));
+  });
+  deck.addEventListener('pointercancel', () => { swipeStart = null; });
   prev.disabled = true;
   prev.addEventListener('click', () => selectCoach(selected - 1));
   next.addEventListener('click', () => selectCoach(selected + 1));

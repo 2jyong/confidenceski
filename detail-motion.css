@@ -47,6 +47,53 @@
 .motion-ready.coaches-page .coach-row .coach-career{transform:translateY(70px);transition-delay:.44s}
 .motion-ready.lesson-page .in-view.program,.motion-ready.lesson-page .in-view.process-row h3,.motion-ready.lesson-page .in-view.process-row p,.motion-ready.season-page .in-view.route-row .route-copy,.motion-ready.season-page .in-view.route-row img,.motion-ready.coaches-page .in-view.coach-row>*{opacity:1;transform:none}
 .motion-ready.season-page .in-view.route-row img{clip-path:inset(0)}
+/* Intro, evidence, route, people and closing each have their own entrance. */
+.section,.director-quote{overflow-x:clip}
+.motion-ready .section>.wrap>.eyebrow,.motion-ready .section .intro-grid .eyebrow{opacity:.55;letter-spacing:.28em;transition:opacity .65s,letter-spacing .8s}
+.motion-ready .section.in-view>.wrap>.eyebrow,.motion-ready .section.in-view .intro-grid .eyebrow{opacity:1;letter-spacing:.12em}
+.motion-ready .lesson-intro h2{opacity:.6;transform:translateX(-45px);transition:opacity .7s,transform .85s}
+.motion-ready .lesson-intro.in-view h2{opacity:1;transform:none}
+.motion-ready .lesson-intro .big-stat{opacity:.6;transform:scale(.82);transform-origin:left bottom;transition:opacity .7s,transform .85s cubic-bezier(.18,.75,.14,1)}
+.motion-ready .lesson-intro.in-view .big-stat{opacity:1;transform:none}
+.motion-ready .programs h2{opacity:.55;transform:translateY(36px);transition:opacity .7s,transform .8s}
+.motion-ready .programs.in-view h2{opacity:1;transform:none}
+.program img{filter:grayscale(.45);transition:filter .7s,transform .75s}
+.program:hover img,.program:focus-within img{filter:none;transform:scale(1.025)}
+.motion-ready .process h2{opacity:.55;clip-path:inset(0 0 45% 0);transition:opacity .8s,clip-path .9s}
+.motion-ready .process.in-view h2{opacity:1;clip-path:inset(0)}
+.process-row{transition:background .45s}
+.process-row:hover{background:#171717}
+.motion-ready .faq h2{opacity:.55;transform:translateX(45px);transition:opacity .7s,transform .85s}
+.motion-ready .faq.in-view h2{opacity:1;transform:none}
+.motion-ready .faq details{opacity:.6;transform:translateY(17px);transition:opacity .55s,transform .65s}
+.motion-ready .faq details.in-view{opacity:1;transform:none}
+.faq details[open]{background:#171717;padding-inline:16px;transition:background .35s,padding .35s}
+.faq summary:hover{color:#ff686e}
+.motion-ready .season-lead h2{opacity:.6;transform:translateX(-50px);transition:opacity .7s,transform .85s}
+.motion-ready .season-lead.in-view h2{opacity:1;transform:none}
+.motion-ready .season-lead .intro-grid>p{opacity:.6;transform:translateY(35px);transition:opacity .7s .13s,transform .85s .13s}
+.motion-ready .season-lead.in-view .intro-grid>p{opacity:1;transform:none}
+.route-row{position:relative}
+.route-row::before{content:'';position:absolute;left:0;right:0;top:-1px;height:2px;background:#ef303a;transform:scaleX(0);transform-origin:left;transition:transform 1s}
+.route-row:nth-child(even)::before{transform-origin:right}
+.route-row.in-view::before{transform:scaleX(1)}
+.route-row img{transition:filter 1s,transform 1.1s,clip-path 1s}
+.route-row:hover img{filter:saturate(1.2)}
+.motion-ready .team-intro h2{opacity:.55;transform:translateY(38px);transition:opacity .7s,transform .8s}
+.motion-ready .team-intro.in-view h2{opacity:1;transform:none}
+.motion-ready .director-quote blockquote{opacity:.55;transform:translateY(42px);transition:opacity .7s,transform .85s}
+.motion-ready .director-quote cite{display:block;opacity:.55;transform:translateX(-25px);transition:opacity .6s .25s,transform .7s .25s}
+.motion-ready .director-quote.in-view blockquote,.motion-ready .director-quote.in-view cite{opacity:1;transform:none}
+.coach-row img{filter:grayscale(.75);transition:filter .9s,transform .9s,opacity .75s}
+.coach-row.in-view img,.coach-row:hover img{filter:none}
+.motion-ready .coach-list h2{opacity:.55;transform:translateX(-48px);transition:opacity .7s,transform .85s}
+.motion-ready .coach-list.in-view h2{opacity:1;transform:none}
+.motion-ready .closing h2{opacity:.55;transform:translateY(40px);transition:opacity .7s,transform .85s}
+.motion-ready .closing.in-view h2{opacity:1;transform:none}
+.closing .link-line{position:relative;transition:gap .25s,color .25s}
+.closing .link-line:hover{gap:50px}
+.closing .link-line::after{content:'';position:absolute;left:0;bottom:-2px;width:100%;height:2px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .8s}
+.closing.in-view .link-line::after{transform:scaleX(1)}
 @media(max-width:850px){
   .coach-row{grid-template-columns:minmax(140px,1fr) minmax(170px,240px) minmax(210px,1fr);gap:22px}
   .coach-row img{height:270px}
@@ -72,4 +119,5 @@
   .detail-hero::before,.detail-hero h1 em,.season-page .detail-hero .tag::after{animation:none!important}
   .motion-ready.lesson-page .program,.motion-ready.lesson-page .process-row h3,.motion-ready.lesson-page .process-row p,.motion-ready.season-page .route-copy,.motion-ready.season-page .route-row img,.motion-ready.coaches-page .coach-row>*{opacity:1;transform:none;clip-path:none;transition:none}
   .process-row::before{transform:none}
+  .motion-ready .section h2,.motion-ready .section .eyebrow,.motion-ready .section .intro-grid>p,.motion-ready .section .big-stat,.motion-ready .faq details,.motion-ready .director-quote blockquote,.motion-ready .director-quote cite,.motion-ready .closing h2{opacity:1!important;transform:none!important;clip-path:none!important;letter-spacing:inherit!important;transition:none!important}
 }
