@@ -30,8 +30,23 @@
 
   function updateHandoff() {
     if (mobileFlow.matches && reduceMotion.matches) {
+      prologue.classList.remove('is-crossing', 'stage-passed');
+      moments[moments.length - 1].style.setProperty('--gap', '0%');
       document.documentElement.classList.add('page-two-ready');
       document.documentElement.classList.add('page-two-header-ready');
+      return;
+    }
+    if (mobileFlow.matches) {
+      const gateway = moments[moments.length - 1];
+      const end = prologue.offsetTop + prologue.offsetHeight - header.offsetHeight;
+      const start = end - gateway.offsetHeight * .62;
+      const exit = Math.max(0, Math.min(1, (scrollY - start) / (end - start)));
+      gateway.style.setProperty('--gap', `${(exit * 50).toFixed(2)}%`);
+      gateway.style.setProperty('--exit', exit.toFixed(3));
+      prologue.classList.toggle('is-crossing', exit > 0 && exit < 1);
+      prologue.classList.toggle('stage-passed', exit >= .99);
+      document.documentElement.classList.toggle('page-two-ready', exit > .74);
+      document.documentElement.classList.toggle('page-two-header-ready', exit >= .99);
       return;
     }
     const stageHeight = stage.offsetHeight;
@@ -65,7 +80,7 @@
       mobilePrepared = true;
     }
     const revealLine = innerHeight * .88;
-    const copyLines = [.88, .42, .55, .6, .45];
+    const copyLines = [.88, .78, .7, .72, .78];
     moments.forEach((moment, index) => {
       const rect = moment.getBoundingClientRect();
       if (rect.top < revealLine) moment.classList.add('mobile-media-visible');
@@ -82,7 +97,7 @@
     moments.forEach((moment, index) => {
       const video = moment.querySelector('video');
       if (!video) return;
-      const shouldPlay = mobileFlow.matches && reduceMotion.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
+      const shouldPlay = mobileFlow.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
       if (shouldPlay && !reduceMotion.matches) {
         if (video.paused) video.play().catch(() => {});
       } else if (!video.paused) video.pause();
@@ -111,7 +126,7 @@
   function updateScroll() {
     frame = false;
     updateHandoff();
-    if (mobileFlow.matches && reduceMotion.matches) {
+    if (mobileFlow.matches) {
       updateMobileScenes();
       syncVideo();
       return;
@@ -157,16 +172,20 @@
 
   document.querySelector('#enter-site').addEventListener('click', () => {
     if (mobileFlow.matches && reduceMotion.matches) {
-      header.scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
+      header.scrollIntoView({behavior:'instant',block:'start'});
     } else {
-      const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
+      const end = mobileFlow.matches
+        ? prologue.offsetTop + prologue.offsetHeight - header.offsetHeight
+        : prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
       scrollTo({top:end + 2,behavior:reduceMotion.matches?'instant':'smooth'});
     }
   });
   if (location.hash === '#academy' && !(mobileFlow.matches && reduceMotion.matches)) {
     addEventListener('load', () => setTimeout(() => {
-      const end = prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
-      if (Math.abs(scrollY - end) < 110) {
+      const end = mobileFlow.matches
+        ? prologue.offsetTop + prologue.offsetHeight - header.offsetHeight
+        : prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
+      if (mobileFlow.matches || Math.abs(scrollY - end) < 110) {
         scrollTo({top:end + 2,behavior:'instant'});
         updateScroll();
       }
