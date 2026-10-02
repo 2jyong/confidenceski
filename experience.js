@@ -7,6 +7,7 @@
   const stage = document.querySelector('.prologue-stage');
   const header = document.querySelector('.chapter-header');
   const logoInterlude = document.querySelector('.logo-interlude');
+  const gatewayRunway = document.querySelector('.gateway-runway');
   const counter = document.querySelector('.proof-stat [data-count-to]');
   const academyStart = () => logoInterlude.offsetTop + logoInterlude.offsetHeight;
   let active = 0;
@@ -31,7 +32,7 @@
   }
 
   function updateHandoff() {
-    document.documentElement.classList.toggle('logo-hold-visible', logoInterlude.getBoundingClientRect().top < innerHeight * .15);
+    document.documentElement.classList.toggle('logo-hold-visible', logoInterlude.getBoundingClientRect().top <= 0);
     if (mobileFlow.matches && reduceMotion.matches) {
       prologue.classList.remove('is-crossing', 'stage-passed');
       moments[moments.length - 1].style.setProperty('--gap', '0%');
@@ -41,8 +42,8 @@
     }
     if (mobileFlow.matches) {
       const gateway = moments[moments.length - 1];
-      const end = prologue.offsetTop + prologue.offsetHeight - header.offsetHeight;
-      const start = end - gateway.offsetHeight * .62;
+      const start = prologue.offsetTop + prologue.offsetHeight - gateway.offsetHeight - gatewayRunway.offsetHeight;
+      const end = start + gatewayRunway.offsetHeight;
       const exit = Math.max(0, Math.min(1, (scrollY - start) / (end - start)));
       gateway.style.setProperty('--gap', `${(exit * 50).toFixed(2)}%`);
       gateway.style.setProperty('--exit', exit.toFixed(3));

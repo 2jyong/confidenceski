@@ -2,6 +2,7 @@
 .season-steps::before{z-index:3;pointer-events:none}
 .season-steps button{z-index:1}
 .season-steps button::before{z-index:4}
+.gateway-runway,.gateway-swipe-cue{display:none}
 
 /* Give the identity a complete visual beat between the two chapters. */
 .logo-interlude{position:relative;isolation:isolate;display:grid;place-items:center;min-height:100svh;overflow:hidden;background:radial-gradient(circle at center,#2b0c0f,#080808 60%)}
@@ -9,17 +10,26 @@
 .logo-interlude>img{position:relative;z-index:1;width:clamp(180px,26vw,380px);filter:drop-shadow(0 10px 35px #000)}
 .chapter-header,.js .chapter-header{margin-top:0}
 .prologue.is-crossing ~ .page-two-veil,.prologue.stage-passed ~ .page-two-veil,html.page-two-ready .prologue.is-crossing ~ .page-two-veil{display:grid;visibility:visible;opacity:1;transition:opacity .35s,visibility 0s}
-html.logo-hold-visible .prologue ~ .page-two-veil,html.page-two-ready.logo-hold-visible .prologue ~ .page-two-veil{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+.prologue.stage-passed ~ .page-two-veil img{transform:scale(1) rotate(0)}
+.prologue.stage-passed ~ .page-two-veil span{transform:scaleY(1)}
+html.logo-hold-visible .prologue ~ .page-two-veil,html.page-two-ready.logo-hold-visible .prologue ~ .page-two-veil{opacity:0;visibility:hidden;transition:opacity .22s,visibility 0s .22s}
 @media(min-width:761px){
   .page-two-ready .chapter-hero:not(.visible)::after{clip-path:inset(0)}
   .page-two-ready .chapter-hero:not(.visible)::before{animation:none;opacity:0}
 }
 @media(max-width:760px){
+  /* Only the final story scene holds. Native touch scrolling drives the split. */
+  .prologue-stage .moment.moment-gateway,.prologue-stage .moment.moment-gateway.is-active,.prologue-stage .moment.moment-gateway:not(.is-active):not(.is-leaving){position:sticky!important;top:0!important;z-index:30}
+  .gateway-runway{display:block;height:calc(var(--mobile-scene-height,100svh) + 160px);background:transparent}
+  .gateway-swipe-cue{display:flex;position:absolute;z-index:6;left:22px;right:22px;bottom:27px;align-items:center;gap:14px;color:#fff;font:800 12px 'Noto Sans KR',sans-serif;letter-spacing:.01em;text-shadow:0 2px 7px #000;pointer-events:none;opacity:calc(1 - var(--exit,0));transition:opacity .15s}
+  .gateway-swipe-cue i{display:block;flex:1;height:2px;background:rgba(255,255,255,.45)}
+  .gateway-swipe-cue b{display:block;width:100%;height:100%;background:#ed3038;transform:scaleX(var(--exit,0));transform-origin:left}
   .logo-interlude{min-height:var(--mobile-scene-height,100svh)}
   .logo-interlude>img{width:clamp(155px,50vw,260px)}
   .chapter-header,.js .chapter-header{margin-top:0}
 }
 @media(prefers-reduced-motion:reduce){
+  .gateway-runway,.gateway-swipe-cue{display:none!important}
   .page-two-veil{display:none!important}
   .logo-interlude{min-height:65svh}
 }
