@@ -6,7 +6,9 @@
   const scrollCue = document.querySelector('#scroll-cue-fill');
   const stage = document.querySelector('.prologue-stage');
   const header = document.querySelector('.chapter-header');
+  const logoInterlude = document.querySelector('.logo-interlude');
   const counter = document.querySelector('.proof-stat [data-count-to]');
+  const academyStart = () => logoInterlude.offsetTop + logoInterlude.offsetHeight;
   let active = 0;
   let frame = false;
   let leaveTimer;
@@ -29,6 +31,7 @@
   }
 
   function updateHandoff() {
+    document.documentElement.classList.toggle('logo-hold-visible', logoInterlude.getBoundingClientRect().top < innerHeight * .15);
     if (mobileFlow.matches && reduceMotion.matches) {
       prologue.classList.remove('is-crossing', 'stage-passed');
       moments[moments.length - 1].style.setProperty('--gap', '0%');
@@ -171,24 +174,17 @@
   }
 
   document.querySelector('#enter-site').addEventListener('click', () => {
-    if (mobileFlow.matches && reduceMotion.matches) {
-      header.scrollIntoView({behavior:'instant',block:'start'});
-    } else {
-      const end = mobileFlow.matches
-        ? prologue.offsetTop + prologue.offsetHeight - header.offsetHeight
-        : prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
-      scrollTo({top:end + 2,behavior:reduceMotion.matches?'instant':'smooth'});
-    }
+    logoInterlude.scrollIntoView({behavior:reduceMotion.matches?'instant':'smooth',block:'start'});
   });
-  if (location.hash === '#academy' && !(mobileFlow.matches && reduceMotion.matches)) {
+  document.querySelector('.brand').addEventListener('click', event => {
+    event.preventDefault();
+    if (location.hash !== '#academy') history.pushState(null, '', '#academy');
+    scrollTo({top:academyStart(),behavior:reduceMotion.matches?'instant':'smooth'});
+  });
+  if (location.hash === '#academy') {
     addEventListener('load', () => setTimeout(() => {
-      const end = mobileFlow.matches
-        ? prologue.offsetTop + prologue.offsetHeight - header.offsetHeight
-        : prologue.offsetTop + prologue.offsetHeight - stage.offsetHeight;
-      if (mobileFlow.matches || Math.abs(scrollY - end) < 110) {
-        scrollTo({top:end + 2,behavior:'instant'});
-        updateScroll();
-      }
+      scrollTo({top:academyStart(),behavior:'instant'});
+      updateScroll();
     }, 120), {once:true});
   }
   const menuToggle = document.querySelector('.menu-toggle');
@@ -200,6 +196,7 @@
   document.querySelectorAll('.header-links a').forEach(link => link.addEventListener('click', () => {
     header.classList.remove('menu-open');
     menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', '메뉴 열기');
   }));
 
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {

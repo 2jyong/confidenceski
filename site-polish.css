@@ -1,0 +1,25 @@
+/* The route line stays above the selected step's opaque background. */
+.season-steps::before{z-index:3;pointer-events:none}
+.season-steps button{z-index:1}
+.season-steps button::before{z-index:4}
+
+/* Give the identity a complete visual beat between the two chapters. */
+.logo-interlude{position:relative;isolation:isolate;display:grid;place-items:center;min-height:100svh;overflow:hidden;background:radial-gradient(circle at center,#2b0c0f,#080808 60%)}
+.logo-interlude>span{position:absolute;inset:0 auto 0 50%;width:2px;background:#ed3038;box-shadow:0 0 40px #ed3038}
+.logo-interlude>img{position:relative;z-index:1;width:clamp(180px,26vw,380px);filter:drop-shadow(0 10px 35px #000)}
+.chapter-header,.js .chapter-header{margin-top:0}
+.prologue.is-crossing ~ .page-two-veil,.prologue.stage-passed ~ .page-two-veil,html.page-two-ready .prologue.is-crossing ~ .page-two-veil{display:grid;visibility:visible;opacity:1;transition:opacity .35s,visibility 0s}
+html.logo-hold-visible .prologue ~ .page-two-veil,html.page-two-ready.logo-hold-visible .prologue ~ .page-two-veil{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+@media(min-width:761px){
+  .page-two-ready .chapter-hero:not(.visible)::after{clip-path:inset(0)}
+  .page-two-ready .chapter-hero:not(.visible)::before{animation:none;opacity:0}
+}
+@media(max-width:760px){
+  .logo-interlude{min-height:var(--mobile-scene-height,100svh)}
+  .logo-interlude>img{width:clamp(155px,50vw,260px)}
+  .chapter-header,.js .chapter-header{margin-top:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .page-two-veil{display:none!important}
+  .logo-interlude{min-height:65svh}
+}

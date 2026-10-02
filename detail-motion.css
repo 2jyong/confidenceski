@@ -108,7 +108,7 @@
   .coach-row{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px;min-height:0;padding:35px 0}
   .coach-row img{grid-column:1 / -1;grid-row:1;width:min(54%,220px);height:auto;aspect-ratio:.78;margin:auto}
   .coach-identity{grid-column:1;grid-row:2;text-align:left;align-self:start}
-  .coach-career{grid-column:2;grid-row:2;align-self:start}
+  .coach-career{grid-column:2;grid-row:2;align-self:start;margin-top:clamp(18px,5vw,26px)}
   .coach-row .rank{font-size:12px}
   .coach-row h3{font-size:clamp(25px,6vw,38px)}
   .coach-row ul{font-size:clamp(12px,3vw,15px);line-height:1.55;padding-left:16px}
