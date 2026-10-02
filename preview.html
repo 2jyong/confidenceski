@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <title>검색·공유 미리보기 | 컨피던스스키</title>
+  <style>
+    :root{color-scheme:dark;--red:#ec3035;--muted:#a8abb1;--line:#333842}*{box-sizing:border-box}body{margin:0;background:#070809;color:#f5f5f5;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;line-height:1.6}button,a{font:inherit}a{color:inherit}.wrap{width:min(1140px,calc(100% - 40px));margin:auto}.top{border-bottom:1px solid var(--line);padding:20px 0}.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}.top img{width:140px}.top a:last-child{text-decoration:none;border-bottom:1px solid var(--red);font-size:14px;font-weight:700}main{padding:62px 0 90px}h1{font-size:clamp(38px,6vw,68px);line-height:1.15;letter-spacing:-.06em;margin:0 0 16px}h1 em{font-style:normal;color:var(--red)}.lead{color:#c8cbd0;max-width:800px;margin:0 0 35px}.pages{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:42px}.pages button{border:1px solid #555;background:#16191f;color:#fff;padding:10px 17px;cursor:pointer}.pages button[aria-pressed=true]{border-color:var(--red);background:var(--red);font-weight:800}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}.panel{border:1px solid var(--line);background:#111318;padding:24px}.label{color:var(--red);font-size:13px;font-weight:900;letter-spacing:.04em;margin:0 0 15px}.panel h2{font-size:22px;letter-spacing:-.04em;margin:0 0 18px}.browser{border:1px solid #353a43;border-radius:12px 12px 0 0;padding:11px 14px;background:#20242b;display:flex;align-items:center;gap:10px;width:min(100%,450px);font-size:13px;white-space:nowrap;overflow:hidden}.browser img{width:33px;height:24px;object-fit:contain;background:#050505;border-radius:4px;padding:3px}.browser span{overflow:hidden;text-overflow:ellipsis}.search{background:#fff;color:#202124;border-radius:0 0 12px 12px;padding:22px;width:min(100%,450px)}.search-origin{display:flex;gap:10px;align-items:center;color:#444746;font-size:12px}.search-origin img{width:32px;height:32px;object-fit:contain;background:#050505;border-radius:50%;padding:5px}.search-title{color:#1a0dab;font-size:21px;line-height:1.3;margin:14px 0 6px}.search-desc{font-size:14px;color:#4d5156;line-height:1.5}.share{overflow:hidden;border-radius:12px;background:#fff;color:#151515;width:min(100%,460px)}.share img{width:100%;aspect-ratio:1200/630;object-fit:cover;display:block}.share-copy{padding:16px}.share-copy strong{display:block;font-size:17px;line-height:1.35}.share-copy p{font-size:13px;color:#60666c;margin:7px 0 10px;line-height:1.5}.share-copy small{font-size:12px;color:#7a7f85}.wide{grid-column:1/-1}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.fact{background:#1b1f25;padding:15px;border-left:2px solid var(--red);font-size:14px}.fact strong{display:block;margin-bottom:4px}.faq{margin-top:15px}.faq div{border-top:1px solid var(--line);padding:13px 0}.faq strong{display:block}.faq p{color:#c1c3c7;font-size:14px;margin:4px 0 0}.note{border-left:3px solid var(--red);padding-left:18px;color:#c5c7cb;margin:35px 0 0;font-size:14px}.note strong{color:#fff}.how{margin-top:32px;padding-top:25px;border-top:1px solid var(--line)}.how h2{font-size:22px}.how ul{margin:0;padding-left:20px;color:#c8cbd0}.how li{margin:8px 0}@media(max-width:760px){main{padding-top:42px}.grid{grid-template-columns:1fr}.wide{grid-column:1}.facts{grid-template-columns:1fr}.panel{padding:18px}.top img{width:110px}}
+    .grid,.panel,.search,.share{min-width:0}.panel{overflow:hidden}.search-title,.search-desc,.share-copy{overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap"><a href="index.html#academy" aria-label="컨피던스스키 메인으로"><img src="assets/logo.png" alt="컨피던스스키"></a><a href="index.html#academy">홈페이지 보기 ↗</a></div></header>
+  <main class="wrap">
+    <h1>검색·공유 화면을<br><em>눈으로 확인하기</em></h1>
+    <p class="lead">각 페이지에 실제로 설정된 제목, 설명, 로고, 공유 이미지를 읽어 예상 화면으로 보여줍니다. 페이지를 선택해 비교해 보세요.</p>
+    <div class="pages" role="group" aria-label="미리 볼 페이지"><button type="button" data-page="index.html" aria-pressed="true">메인</button><button type="button" data-page="lesson.html" aria-pressed="false">수업 안내</button><button type="button" data-page="season.html" aria-pressed="false">시즌 운영</button><button type="button" data-page="coaches.html" aria-pressed="false">지도자</button></div>
+    <div class="grid">
+      <section class="panel"><p class="label">브라우저 탭 · 검색 결과</p><h2>검색에서 보일 수 있는 모습</h2><div class="browser"><img id="tab-icon" src="assets/logo.png" alt=""><span id="tab-title"></span></div><div class="search"><div class="search-origin"><img id="search-icon" src="assets/logo.png" alt=""><span id="search-url"></span></div><p class="search-title" id="search-title"></p><p class="search-desc" id="search-desc"></p></div></section>
+      <section class="panel"><p class="label">카카오톡 등 링크 공유</p><h2>공유 카드 예상 모습</h2><div class="share"><img id="share-image" src="assets/og-cover.jpg" alt="컨피던스스키 공유 이미지"><div class="share-copy"><strong id="share-title"></strong><p id="share-desc"></p><small id="share-url"></small></div></div></section>
+      <section class="panel wide"><p class="label">질문형 검색 · AI 검색</p><h2>페이지에 정리된 정보</h2><div class="facts" id="facts"></div><div class="faq" id="faq"></div></section>
+    </div>
+    <p class="note"><strong>실제 결과와의 차이</strong><br>이 화면은 현재 파일의 설정을 보여주는 미리보기입니다. 실제 검색 제목·순위, AI의 답변·인용, 공유 카드 배치는 각 서비스가 결정하며 배포와 수집 후 확인할 수 있습니다.</p>
+    <section class="how"><h2>배포 후 실제로 확인하는 방법</h2><ul><li>브라우저 탭과 즐겨찾기에서 로고 파비콘을 확인합니다.</li><li>공개 페이지 주소를 카카오톡 ‘나에게 보내기’에 붙여 넣고 공유 카드를 확인합니다.</li><li>검색창에서 <strong>site:confidenceski.vercel.app 컨피던스스키</strong>를 검색해 노출된 페이지를 확인합니다.</li><li>AI 검색 서비스에 <strong>“컨피던스스키의 주니어 스키 수업 방식은?”</strong>처럼 실제 질문을 해 보고, 답변에 출처가 연결되는지 확인합니다.</li></ul></section>
+  </main>
+  <script>
+    const buttons=[...document.querySelectorAll('[data-page]')];
+    const text=(id,value)=>document.getElementById(id).textContent=value||'';
+    const meta=(doc,selector)=>doc.querySelector(selector)?.getAttribute('content')||'';
+    async function showPage(file){
+      const response=await fetch(file,{cache:'no-store'});
+      if(!response.ok)throw new Error('페이지를 읽지 못했습니다.');
+      const doc=new DOMParser().parseFromString(await response.text(),'text/html');
+      const title=doc.title;
+      const description=meta(doc,'meta[name="description"]');
+      const canonical=doc.querySelector('link[rel="canonical"]')?.href||'';
+      const ogTitle=meta(doc,'meta[property="og:title"]')||title;
+      const ogDescription=meta(doc,'meta[property="og:description"]')||description;
+      const ogImage=meta(doc,'meta[property="og:image"]');
+      const favicon=doc.querySelector('link[rel="icon"]')?.getAttribute('href')||'assets/logo.png';
+      document.querySelectorAll('#tab-icon,#search-icon').forEach(icon=>icon.src=favicon);
+      text('tab-title',title);text('search-url',canonical.replace(/^https?:\/\//,''));text('search-title',title);text('search-desc',description);
+      text('share-title',ogTitle);text('share-desc',ogDescription);text('share-url',canonical.replace(/^https?:\/\//,''));
+      document.getElementById('share-image').src=new URL(ogImage).pathname;
+      let graph=[];try{graph=JSON.parse(doc.querySelector('script[type="application/ld+json"]')?.textContent||'{}')['@graph']||[]}catch{}
+      const labels={'Organization':'컨피던스스키 브랜드 정보','WebSite':'공식 홈페이지 정보','WebPage':'현재 페이지의 대표 주소','Service':'주니어 스키 수업 정보','FAQPage':'자주 묻는 질문과 답변','ItemList':'지도자 목록'};
+      document.getElementById('facts').innerHTML=graph.map(item=>`<div class="fact"><strong>${labels[item['@type']]||'페이지 정보'}</strong>${item.name||'검색 서비스가 읽을 수 있도록 표시했습니다.'}</div>`).join('');
+      const faq=graph.find(item=>item['@type']==='FAQPage')?.mainEntity||[];
+      document.getElementById('faq').innerHTML=faq.map(item=>`<div><strong>${item.name}</strong><p>${item.acceptedAnswer?.text||''}</p></div>`).join('');
+      buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.page===file)));
+    }
+    buttons.forEach(button=>button.addEventListener('click',()=>showPage(button.dataset.page).catch(error=>text('search-desc',error.message))));
+    showPage('index.html').catch(error=>text('search-desc',error.message));
+  </script>
+</body>
+</html>
