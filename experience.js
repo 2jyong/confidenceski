@@ -211,11 +211,21 @@
     ['assets/stage3.jpg','삿포로 일본 캠프 사진']
   ];
   const seasonImage = document.querySelector('#season-image');
+  const seasonSteps = document.querySelector('.season-steps');
+  const seasonTabs = [...document.querySelectorAll('[data-season]')];
+  function updateSeasonRail(tab = seasonTabs.find(item => item.getAttribute('aria-selected') === 'true')) {
+    if (!tab) return;
+    const progress = tab === seasonTabs[seasonTabs.length - 1]
+      ? seasonSteps.offsetHeight
+      : tab.offsetTop + tab.offsetHeight / 2;
+    seasonSteps.style.setProperty('--season-progress', `${progress}px`);
+  }
   let imageTimer;
-  document.querySelectorAll('[data-season]').forEach(tab => {
+  seasonTabs.forEach(tab => {
     function select() {
       const index = Number(tab.dataset.season);
-      document.querySelectorAll('[data-season]').forEach(item => item.setAttribute('aria-selected', String(item === tab)));
+      seasonTabs.forEach(item => item.setAttribute('aria-selected', String(item === tab)));
+      updateSeasonRail(tab);
       seasonImage.classList.add('changing');
       clearTimeout(imageTimer);
       imageTimer = setTimeout(() => {
@@ -227,6 +237,9 @@
     tab.addEventListener('click', select);
     tab.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') select(); });
   });
+  updateSeasonRail();
+  addEventListener('resize', () => updateSeasonRail());
+  document.fonts?.ready.then(() => updateSeasonRail());
 
   const deck = document.querySelector('.coach-deck');
   const cards = [...deck.querySelectorAll('.stack-card')];

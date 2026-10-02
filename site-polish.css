@@ -1,7 +1,11 @@
-/* The route line stays above the selected step's opaque background. */
-.season-steps::before{z-index:3;pointer-events:none}
-.season-steps button{z-index:1}
-.season-steps button::before{z-index:4}
+/* A muted route sits behind the stops; red reaches only the selected stop. */
+.season-steps::before{left:0;width:2px;background:#626770;z-index:2;pointer-events:none}
+.season-steps::after{content:'';position:absolute;left:0;top:0;width:2px;height:var(--season-progress,0px);background:var(--red);z-index:3;pointer-events:none;transition:height .48s cubic-bezier(.2,.7,.2,1)}
+.season-steps button{z-index:auto}
+.season-steps button::before{box-sizing:border-box;left:-9px;width:20px;height:20px;border-width:3px;border-color:#aaaeb5;background:#07090d;z-index:4}
+.season-steps button[aria-selected=true]::before{background:var(--red);border-color:#fff}
+.season-feature:not(.visible) .season-steps::after{opacity:0}
+.season-feature.visible .season-steps::after{opacity:1;transition:height .48s cubic-bezier(.2,.7,.2,1),opacity .4s .2s}
 .gateway-runway,.gateway-swipe-cue{display:none}
 
 /* Give the identity a complete visual beat between the two chapters. */
