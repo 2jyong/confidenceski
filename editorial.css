@@ -57,7 +57,7 @@
 .grade-media figcaption{position:absolute;left:0;bottom:0;padding:24px 26px 18px;width:100%;color:#fff;font-size:14px;font-weight:800;background:linear-gradient(transparent,rgba(0,0,0,.58));letter-spacing:.02em}
 .grade-media.is-changing img{animation:ed-photo .7s both}
 .grade-stage p{font-size:18px;line-height:1.8}
-.grade-nav{display:flex;gap:7px;flex-wrap:wrap;margin:35px 0 20px}
+.grade-nav{display:grid;grid-template-columns:repeat(5,54px);gap:10px;margin:35px 0 20px}
 .grade-nav button{width:54px;height:54px;border-radius:50%;font-size:17px;background:#20242a}
 .grade-result{display:flex;align-items:baseline;gap:20px;border-top:1px solid #8d949e;padding-top:22px}
 .grade-result b{font:900 clamp(110px,15vw,220px)/.9 'Barlow Condensed',sans-serif;color:#d4202b}
@@ -108,7 +108,7 @@
 @keyframes ed-pop{from{transform:scale(.25);opacity:0}to{transform:none;opacity:1}}
 @keyframes ed-spin{to{transform:rotate(360deg)}}
 @media(max-width:850px){.race-spotlight,.race-frame,.contact-route{grid-template-columns:1fr}.grade-stage{grid-template-columns:1fr;grid-template-areas:"intro" "media" "nav" "result";gap:24px}.grade-media{min-height:0;aspect-ratio:16/10}.race-spotlight figure{aspect-ratio:4/3}.race-frame .photo{height:340px}.blog-index{grid-template-columns:1fr}}
-@media(max-width:600px){.ed-hero{min-height:680px}.ed-hero .wrap{padding:115px 0 75px}.ed-hero h1,.blog-page .ed-hero h1,.contact-page .ed-hero h1,.article-page .ed-hero h1{font-size:clamp(43px,10.5vw,66px)}.ed-hero .hero-corner{display:none}.ed-section{padding:78px 0}.ed-section h2{font-size:clamp(38px,9vw,55px)}.race-frame .photo{height:260px}.grade-nav button{width:44px;height:44px}.grade-media{aspect-ratio:16/10}.contact-route article{min-height:260px}.contact-page .mobile-only{display:block}.article-layout{font-size:17px}.blog-index a{min-height:300px}}
+@media(max-width:600px){.ed-hero{min-height:680px}.ed-hero .wrap{padding:115px 0 75px}.ed-hero h1,.blog-page .ed-hero h1,.contact-page .ed-hero h1,.article-page .ed-hero h1{font-size:clamp(43px,10.5vw,66px)}.ed-hero .hero-corner{display:none}.ed-section{padding:78px 0}.ed-section h2{font-size:clamp(38px,9vw,55px)}.race-frame .photo{height:260px}.grade-nav{grid-template-columns:repeat(5,44px)}.grade-nav button{width:44px;height:44px}.grade-media{aspect-ratio:16/10}.contact-route article{min-height:260px}.contact-page .mobile-only{display:block}.article-layout{font-size:17px}.blog-index a{min-height:300px}}
 @media(max-width:600px){.ed-hero h1{line-height:1.17}.ed-hero h1 em{margin-top:.05em}}
 @media(max-width:600px){.race-page .ed-hero:before{background:linear-gradient(0deg,rgba(0,0,0,.96),rgba(0,0,0,.82) 58%,rgba(0,0,0,.26))}}
 @media(prefers-reduced-motion:reduce){.ed-hero:after{display:none}.ed-hero h1 span,.ed-hero h1 em,.ed-hero p{animation:none}.ed-reveal{opacity:1;transform:none;filter:none}.ed-rule:after{width:100%}.ed-cta:before{transform:scaleX(1)}.ed-hero .hero-corner{animation:none}.race-frame.is-changing .photo img,.race-frame.is-changing .copy>*,.grade-result.is-changing b,.grade-media.is-changing img{animation:none}}
