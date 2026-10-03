@@ -35,8 +35,20 @@
   }));
 
   const grades = ['스노우플라우','스노우플라우턴','스템턴','베이직 롱턴','베이직 숏턴','다이나믹 롱턴','다이나믹 숏턴','카빙성 롱턴','카빙성 숏턴','종합활강'];
+  const gradeImages = grades.map((_, index) => `assets/grade-${String(index + 1).padStart(2, '0')}.webp`);
   const gradeResult = document.querySelector('.grade-result');
+  const gradeMedia = document.querySelector('.grade-media');
+  const gradePhoto = document.querySelector('#grade-photo');
   const gradeButtons = [...document.querySelectorAll('[data-grade]')];
+  let gradeRequest = 0;
+  if (gradeMedia && 'IntersectionObserver' in window) {
+    const preload = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      gradeImages.slice(1).forEach(src => { const img = new Image(); img.src = src; });
+      preload.disconnect();
+    }, { rootMargin: '250px' });
+    preload.observe(gradeMedia);
+  }
   gradeButtons.forEach(button => button.addEventListener('click', () => {
     const number = Number(button.dataset.grade);
     gradeButtons.forEach(item => item.setAttribute('aria-selected', String(item === button)));
@@ -45,5 +57,18 @@
     gradeResult.classList.remove('is-changing');
     void gradeResult.offsetWidth;
     if (!reduce.matches) gradeResult.classList.add('is-changing');
+    if (!gradePhoto || !gradeMedia) return;
+    const request = ++gradeRequest;
+    const next = new Image();
+    next.onload = () => {
+      if (request !== gradeRequest) return;
+      gradePhoto.src = gradeImages[number - 1];
+      gradePhoto.alt = `${number}급 ${grades[number - 1]} 동작 예시`;
+      gradeMedia.setAttribute('aria-labelledby', button.id);
+      gradeMedia.classList.remove('is-changing');
+      void gradeMedia.offsetWidth;
+      if (!reduce.matches) gradeMedia.classList.add('is-changing');
+    };
+    next.src = gradeImages[number - 1];
   }));
 })();
