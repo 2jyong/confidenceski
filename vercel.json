@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "redirects": [
+    { "source": "/lesson", "destination": "/lesson.html", "permanent": true },
+    { "source": "/season", "destination": "/season.html", "permanent": true },
+    { "source": "/coaches", "destination": "/coaches.html", "permanent": true },
+    { "source": "/race", "destination": "/race.html", "permanent": true },
+    { "source": "/blog", "destination": "/blog.html", "permanent": true },
+    { "source": "/contact", "destination": "/contact.html", "permanent": true },
+    { "source": "/elysian-seoul", "destination": "/elysian-seoul.html", "permanent": true },
+    { "source": "/jisan-seoul", "destination": "/jisan-seoul.html", "permanent": true }
+  ]
+}
