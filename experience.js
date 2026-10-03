@@ -103,6 +103,12 @@
       if (!video) return;
       const shouldPlay = mobileFlow.matches ? moment.getBoundingClientRect().bottom > 0 && moment.getBoundingClientRect().top < innerHeight : index === active;
       if (shouldPlay && !reduceMotion.matches) {
+        const source = video.querySelector('source[data-src]');
+        if (source) {
+          source.src = source.dataset.src;
+          source.removeAttribute('data-src');
+          video.load();
+        }
         if (video.paused) video.play().catch(() => {});
       } else if (!video.paused) video.pause();
     });

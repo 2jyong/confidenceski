@@ -16,7 +16,7 @@
   <main class="wrap">
     <h1>검색·공유 화면을<br><em>눈으로 확인하기</em></h1>
     <p class="lead">각 페이지에 실제로 설정된 제목, 설명, 로고, 공유 이미지를 읽어 예상 화면으로 보여줍니다. 페이지를 선택해 비교해 보세요.</p>
-    <div class="pages" role="group" aria-label="미리 볼 페이지"><button type="button" data-page="index.html" aria-pressed="true">메인</button><button type="button" data-page="lesson.html" aria-pressed="false">수업 안내</button><button type="button" data-page="season.html" aria-pressed="false">시즌 운영</button><button type="button" data-page="coaches.html" aria-pressed="false">지도자</button></div>
+    <div class="pages" role="group" aria-label="미리 볼 페이지"><button type="button" data-page="index.html" aria-pressed="true">메인</button><button type="button" data-page="lesson.html" aria-pressed="false">수업 안내</button><button type="button" data-page="season.html" aria-pressed="false">시즌 운영</button><button type="button" data-page="coaches.html" aria-pressed="false">지도자</button><button type="button" data-page="race.html" aria-pressed="false">대회·등급</button><button type="button" data-page="blog.html" aria-pressed="false">이야기</button><button type="button" data-page="contact.html" aria-pressed="false">문의</button><button type="button" data-page="elysian-seoul.html" aria-pressed="false">강촌 글</button><button type="button" data-page="jisan-seoul.html" aria-pressed="false">지산 글</button></div>
     <div class="grid">
       <section class="panel"><p class="label">브라우저 탭 · 검색 결과</p><h2>검색에서 보일 수 있는 모습</h2><div class="browser"><img id="tab-icon" src="assets/logo.png" alt=""><span id="tab-title"></span></div><div class="search"><div class="search-origin"><img id="search-icon" src="assets/logo.png" alt=""><span id="search-url"></span></div><p class="search-title" id="search-title"></p><p class="search-desc" id="search-desc"></p></div></section>
       <section class="panel"><p class="label">카카오톡 등 링크 공유</p><h2>공유 카드 예상 모습</h2><div class="share"><img id="share-image" src="assets/og-cover.jpg" alt="컨피던스스키 공유 이미지"><div class="share-copy"><strong id="share-title"></strong><p id="share-desc"></p><small id="share-url"></small></div></div></section>
@@ -45,7 +45,7 @@
       text('share-title',ogTitle);text('share-desc',ogDescription);text('share-url',canonical.replace(/^https?:\/\//,''));
       document.getElementById('share-image').src=new URL(ogImage).pathname;
       let graph=[];try{graph=JSON.parse(doc.querySelector('script[type="application/ld+json"]')?.textContent||'{}')['@graph']||[]}catch{}
-      const labels={'Organization':'컨피던스스키 브랜드 정보','WebSite':'공식 홈페이지 정보','WebPage':'현재 페이지의 대표 주소','Service':'주니어 스키 수업 정보','FAQPage':'자주 묻는 질문과 답변','ItemList':'지도자 목록'};
+      const labels={'LocalBusiness':'지역 스키 강습 업체 정보','WebSite':'공식 홈페이지 정보','WebPage':'현재 페이지의 대표 주소','Service':'주니어 스키 수업 정보','FAQPage':'자주 묻는 질문과 답변','ContactPage':'문의 페이지','Blog':'레슨 이야기','Article':'지역 레슨 글','CollectionPage':'대회·등급제 안내'};
       document.getElementById('facts').innerHTML=graph.map(item=>`<div class="fact"><strong>${labels[item['@type']]||'페이지 정보'}</strong>${item.name||'검색 서비스가 읽을 수 있도록 표시했습니다.'}</div>`).join('');
       const faq=graph.find(item=>item['@type']==='FAQPage')?.mainEntity||[];
       document.getElementById('faq').innerHTML=faq.map(item=>`<div><strong>${item.name}</strong><p>${item.acceptedAnswer?.text||''}</p></div>`).join('');
