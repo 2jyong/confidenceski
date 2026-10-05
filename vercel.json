@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
   "redirects": [
+    { "source": "/index", "destination": "/", "permanent": true },
     { "source": "/lesson", "destination": "/lesson.html", "permanent": true },
     { "source": "/season", "destination": "/season.html", "permanent": true },
     { "source": "/coaches", "destination": "/coaches.html", "permanent": true },
