@@ -1,0 +1,159 @@
+/* A modest type and spacing adjustment shared by the public pages. */
+
+/* Main: cinematic prologue and the chapter after it. */
+.micro{font-size:15px;margin-bottom:21px}
+.moment p:not(.micro){font-size:clamp(16px,1.35vw,19px)}
+.moment-first h1{font-size:clamp(61px,7.1vw,121px)}
+.question-copy h2{font-size:clamp(63px,8vw,133px)}
+.answer-copy h2{font-size:clamp(50px,6vw,102px)}
+.moment-proof h2{font-size:clamp(48px,6.2vw,103px)}
+.gateway-copy h2{font-size:clamp(57px,6.9vw,116px)}
+.first-caption{margin-top:38px}
+.question-copy>p:last-child{margin-top:30px}
+.answer-copy>p:not(.micro){margin:24px 0}
+.proof-stat{gap:30px;margin-top:35px}
+.proof-stat b{font-size:clamp(72px,8.3vw,133px)}
+.proof-stat span{font-size:16px}
+.enter-button{font-size:18px;gap:72px;padding:20px 25px;margin-top:36px}
+.chapter-copy h2,.feature-side h2,.season-header h2,.coach-heading h2,.close-feature h2{font-size:clamp(48px,5.2vw,86px);margin-bottom:24px}
+.chapter-copy>p:not(.micro),.feature-side>p:not(.micro),.season-header>p:not(.micro),.coach-heading>p:not(.micro),.close-feature p:not(.micro){font-size:17px}
+.chapter-copy{padding-top:72px;padding-bottom:72px}
+.lesson-feature{padding-top:100px;padding-bottom:100px}
+.season-feature{padding-top:130px;padding-bottom:130px}
+.coach-feature{padding-top:125px;padding-bottom:82px}
+.coach-heading h2{font-size:clamp(62px,6.4vw,105px)}
+.coach-deck{margin-top:62px}
+.season-body{margin-top:58px}
+.season-steps button{padding-top:22px;padding-bottom:22px}
+.season-steps strong{font-size:clamp(23px,1.95vw,33px)}
+.season-steps span{font-size:15px}
+.card-content strong{font-size:51px;margin-bottom:15px}
+.card-content>span{font-size:14px}
+.text-link{font-size:16px;margin-top:22px;gap:45px}
+.close-feature h2{font-size:clamp(43px,5.7vw,84px);margin-bottom:16px}
+.close-feature .solid-link{font-size:16px;gap:54px;margin-top:21px}
+.header-links{font-size:14px;gap:clamp(17px,2.5vw,42px)}
+
+/* Lesson, season, and coach pages. */
+.has-detail-nav .detail-hero h1{font-size:clamp(46px,6.6vw,101px);margin-top:22px;margin-bottom:22px}
+.coaches-page .detail-hero h1{font-size:clamp(33px,6vw,88px)}
+.detail-hero p{font-size:clamp(18px,1.4vw,22px)}
+.has-detail-nav .detail-hero .tag{font-size:17px}
+.section{padding:clamp(78px,9.2vw,140px) 0}
+.section h2{font-size:clamp(35px,5.1vw,71px);margin-bottom:26px}
+.section p{font-size:17px}
+.eyebrow{font-size:13px;margin-bottom:19px}
+.program h3{font-size:clamp(29px,2.8vw,46px);margin-top:18px}
+.program img{margin-top:28px}
+.process-row{padding-top:25px;padding-bottom:25px}
+.process-row h3{font-size:clamp(22px,2.4vw,34px)}
+.route-row{padding-top:50px;padding-bottom:50px}
+.route-copy h3{font-size:clamp(31px,3.7vw,59px);margin-top:18px}
+.route-copy .date{font-size:18px}
+.coach-row h3{font-size:clamp(31px,3.7vw,57px)}
+.coach-row ul{font-size:16px}
+.director-quote{padding-top:78px;padding-bottom:78px}
+.director-quote blockquote{font-size:clamp(29px,3.7vw,52px)}
+.closing{padding-top:98px;padding-bottom:98px}
+.closing h2{font-size:clamp(41px,5.5vw,78px);margin-bottom:30px}
+.detail-nav nav{font-size:14px;gap:clamp(17px,2.5vw,42px)}
+.link-line{font-size:16px;gap:31px}
+
+/* Race, article, location, and contact pages. */
+.ed-hero .wrap{padding-top:101px;padding-bottom:84px}
+.ed-tag{font-size:16px;margin-bottom:22px}
+.ed-hero h1{font-size:clamp(54px,8.2vw,120px)}
+.blog-page .ed-hero h1,.contact-page .ed-hero h1{font-size:clamp(46px,6.6vw,95px)}
+.article-page .ed-hero h1{font-size:clamp(47px,7.4vw,106px)}
+.ed-hero p{font-size:clamp(17px,1.85vw,22px);margin-top:25px}
+.ed-section{padding:clamp(75px,8.2vw,136px) 0}
+.ed-section h2{font-size:clamp(37px,5.1vw,74px);margin-bottom:25px}
+.ed-section .lead{font-size:clamp(17px,1.6vw,21px)}
+.ed-rule{margin-top:34px;margin-bottom:34px}
+.race-spotlight .quote{font-size:clamp(23px,2.75vw,39px)}
+#race-why{font-size:clamp(36px,3.7vw,58px)}
+.race-frame .copy h3{font-size:clamp(27px,2.8vw,44px);margin-bottom:20px}
+.race-frame .copy p,.contact-route p,.ed-faq details p,.blog-index p{font-size:16px}
+.grade-stage p{font-size:17px}
+.grade-nav{margin-top:31px}
+.grade-result b{font-size:clamp(100px,13.8vw,202px)}
+.grade-result span{font-size:clamp(23px,2.8vw,41px)}
+.blog-page .ed-cta h2{font-size:clamp(37px,3.9vw,53px)}
+.ed-cta a{font-size:18px;gap:41px}
+.contact-route article{padding:clamp(28px,3.7vw,60px)}
+.contact-route h3{font-size:clamp(26px,2.8vw,40px);margin-top:46px;margin-bottom:16px}
+.ed-faq summary{font-size:clamp(18px,1.85vw,25px);padding-top:22px;padding-bottom:22px}
+.blog-index a{padding:clamp(23px,3.7vw,50px)}
+.blog-index h3{font-size:clamp(24px,2.8vw,41px);margin-top:34px;margin-bottom:18px}
+.article-layout{font-size:18px}
+.article-layout h2{font-size:clamp(33px,3.7vw,55px);margin-top:80px}
+.article-layout .article-highlight{font-size:clamp(20px,2.4vw,29px);padding:27px 33px;margin-top:46px;margin-bottom:46px}
+
+@media(max-width:760px){
+  .micro{font-size:13px;margin-bottom:14px}
+  .moment p:not(.micro){font-size:15px}
+  .moment-first h1{font-size:clamp(50px,10.2vw,76px)}
+  .question-copy h2{font-size:clamp(40px,9.7vw,69px)}
+  .answer-copy h2{font-size:clamp(42px,9.8vw,69px)}
+  .moment-proof h2{font-size:clamp(30px,7.4vw,53px)}
+  .gateway-copy h2{font-size:clamp(46px,9.7vw,72px)}
+  .proof-stat b{font-size:69px}
+  .proof-stat span{font-size:12px}
+  .enter-button{font-size:14px;gap:20px;padding:16px 18px;margin-top:27px}
+  .chapter-copy h2,.feature-side h2,.season-header h2,.coach-heading h2,.close-feature h2{font-size:clamp(41px,9.2vw,64px);margin-bottom:21px}
+  .chapter-copy>p:not(.micro),.feature-side>p:not(.micro),.season-header>p:not(.micro),.coach-heading>p:not(.micro),.close-feature p:not(.micro){font-size:15px}
+  .chapter-copy{padding-bottom:83px}
+  .lesson-feature{padding-top:91px;padding-bottom:91px}
+  .season-feature{padding-top:96px;padding-bottom:96px}
+  .season-body{margin-top:32px}
+  .season-steps button{padding-top:16px;padding-bottom:16px}
+  .season-steps strong{font-size:26px}
+  .season-steps span{font-size:13px}
+  .coach-feature{padding-top:96px;padding-bottom:73px}
+  .coach-deck{margin-top:39px}
+  .card-content strong{font-size:41px}
+  .card-content>span{font-size:12px}
+  .close-feature h2{font-size:clamp(32px,7.5vw,53px)}
+  .close-feature .solid-link{font-size:15px;gap:32px}
+  .has-detail-nav .detail-hero h1{font-size:clamp(40px,8.3vw,69px)}
+  .coaches-page .detail-hero h1{font-size:clamp(32px,7vw,52px)}
+  .detail-hero p{font-size:16px}
+  .section{padding:72px 0}
+  .section h2{font-size:clamp(33px,7.4vw,45px);margin-bottom:23px}
+  .section p{font-size:15px}
+  .route-row{padding-top:44px;padding-bottom:44px}
+  .route-copy h3{font-size:clamp(31px,7.5vw,49px)}
+  .coach-row h3{font-size:clamp(24px,5.5vw,35px)}
+  .coach-row ul{font-size:14px}
+  .director-quote{padding-top:72px;padding-bottom:72px}
+  .director-quote blockquote{font-size:clamp(27px,6vw,43px)}
+  .closing{padding-top:88px;padding-bottom:88px}
+  .closing h2{font-size:clamp(36px,7.6vw,62px)}
+  .ed-hero .wrap{padding-top:107px;padding-bottom:69px}
+  .ed-hero h1,.blog-page .ed-hero h1,.contact-page .ed-hero h1,.article-page .ed-hero h1{font-size:clamp(40px,9.7vw,61px)}
+  .ed-hero p{font-size:16px;margin-top:23px}
+  .ed-section{padding:72px 0}
+  .ed-section h2{font-size:clamp(35px,8.2vw,50px);margin-bottom:23px}
+  .ed-section .lead{font-size:17px}
+  .article-layout{font-size:16px}
+}
+
+@media(max-width:430px){
+  .moment-first h1{font-size:clamp(36px,9.6vw,45px)}
+  .question-copy h2{font-size:clamp(37px,9.9vw,44px)}
+  .answer-copy h2{font-size:clamp(35px,9.5vw,41px)}
+  .moment-proof h2{font-size:clamp(25px,7vw,38px)}
+  .gateway-copy h2{font-size:clamp(32px,8.6vw,43px)}
+  .chapter-copy h2,.feature-side h2,.season-header h2,.coach-heading h2,.close-feature h2{font-size:39px}
+  .season-header h2{font-size:31px}
+  .season-steps strong{font-size:23px}
+  .card-content strong{font-size:34px}
+  .close-feature h2{font-size:31px}
+}
+
+@media(max-width:360px){
+  .moment-first h1{font-size:36px}
+  .gateway-copy h2{font-size:32px}
+  .season-header h2{font-size:30px}
+  .chapter-copy h2,.feature-side h2,.coach-heading h2{font-size:36px}
+}
