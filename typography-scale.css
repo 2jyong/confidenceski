@@ -152,6 +152,7 @@
 }
 
 @media(max-width:360px){
+  .race-frame .copy h3{font-size:24px}
   .moment-first h1{font-size:36px}
   .gateway-copy h2{font-size:32px}
   .season-header h2{font-size:30px}

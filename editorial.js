@@ -15,8 +15,8 @@
 
   const frames = [
     { image:'assets/race-podium.webp', alt:'대회 시상대에 오른 컨피던스스키 학생', title:'춘천시스키협회장배', body:'박OO 학생과 허OO 학생이 각각 2위를 기록했습니다. 아이들이 쌓아 온 기술을 대회 코스에서 보여 준 장면입니다.' },
-    { image:'assets/race-alpine.png', alt:'알파인 스키 대회 출전 현장', title:'성북구청장배 전국 알파인 스키 대회', body:'박OO 학생과 허OO 학생이 각각 2위를 기록했습니다. 출발선부터 완주까지의 경험을 살펴보세요.' },
-    { image:'assets/race-event.jpg', alt:'2025년 국제 주니어 기술선수권대회 참가 현장', title:'2025년 국제 주니어 기술선수권대회', body:'국제 주니어 기술선수권대회 참가 기록입니다. 대회 출전 준비와 현장 경험을 수업과 연결합니다.' }
+    { image:'assets/race-alpine.png', alt:'알파인 스키 대회 출전 현장', title:'성북구청장배 전국 알파인 스키 대회', titleLines:['성북구청장배','전국 알파인 스키 대회'], body:'박OO 학생과 허OO 학생이 각각 2위를 기록했습니다. 출발선부터 완주까지의 경험을 살펴보세요.' },
+    { image:'assets/race-event.jpg', alt:'2025년 국제 주니어 기술선수권대회 참가 현장', title:'2025년 국제 주니어 기술선수권대회', titleLines:['2025년 국제 주니어','기술선수권대회'], body:'국제 주니어 기술선수권대회 참가 기록입니다. 대회 출전 준비와 현장 경험을 수업과 연결합니다.' }
   ];
   const frame = document.querySelector('.race-frame');
   const raceButtons = [...document.querySelectorAll('[data-race]')];
@@ -27,7 +27,17 @@
     const photo = frame.querySelector('img');
     photo.src = selected.image;
     photo.alt = selected.alt;
-    frame.querySelector('h3').textContent = selected.title;
+    const heading = frame.querySelector('h3');
+    heading.replaceChildren();
+    if (selected.titleLines) {
+      selected.titleLines.forEach((line, index) => {
+        const part = document.createElement('span');
+        part.className = 'race-title-line';
+        part.textContent = line;
+        heading.append(part);
+        if (index < selected.titleLines.length - 1) heading.append(document.createTextNode(' '));
+      });
+    } else heading.textContent = selected.title;
     frame.querySelector('p').textContent = selected.body;
     frame.classList.remove('is-changing');
     void frame.offsetWidth;
